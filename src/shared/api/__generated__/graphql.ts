@@ -1,0 +1,424 @@
+/* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = T | null | undefined;
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T,
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never;
+    };
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: { input: unknown; output: unknown };
+};
+
+export const ActivityLevel = {
+  Active: "ACTIVE",
+  ExtraActive: "EXTRA_ACTIVE",
+  Light: "LIGHT",
+  Moderately: "MODERATELY",
+  Sedentary: "SEDENTARY",
+} as const;
+
+export type ActivityLevel = (typeof ActivityLevel)[keyof typeof ActivityLevel];
+export type AuthInput = {
+  email: Scalars["String"]["input"];
+  password: Scalars["String"]["input"];
+};
+
+export type AuthResponse = {
+  __typename: "AuthResponse";
+  accessToken: Scalars["String"]["output"];
+  user: UserModel;
+};
+
+export type BodyMeasurementInputUpdate = {
+  activityLevel?: InputMaybe<ActivityLevel>;
+  armCm?: InputMaybe<Scalars["Int"]["input"]>;
+  chestCm?: InputMaybe<Scalars["Int"]["input"]>;
+  createdAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+  goalWeightKg?: InputMaybe<Scalars["Int"]["input"]>;
+  heightCm?: InputMaybe<Scalars["Int"]["input"]>;
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  nutritionGoal?: InputMaybe<NutritionGoal>;
+  thighCm?: InputMaybe<Scalars["Int"]["input"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+  waistCm?: InputMaybe<Scalars["Int"]["input"]>;
+  weightKg?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type BodyMeasurementModel = {
+  __typename: "BodyMeasurementModel";
+  activityLevel: Maybe<ActivityLevel>;
+  armCm: Maybe<Scalars["Int"]["output"]>;
+  chestCm: Maybe<Scalars["Int"]["output"]>;
+  createdAt: Scalars["DateTime"]["output"];
+  goalWeightKg: Maybe<Scalars["Int"]["output"]>;
+  heightCm: Maybe<Scalars["Int"]["output"]>;
+  id: Scalars["String"]["output"];
+  nutritionGoal: Maybe<NutritionGoal>;
+  thighCm: Maybe<Scalars["Int"]["output"]>;
+  updatedAt: Scalars["DateTime"]["output"];
+  waistCm: Maybe<Scalars["Int"]["output"]>;
+  weightKg: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type CommentCreateInput = {
+  content: Scalars["String"]["input"];
+  recipeId: Scalars["String"]["input"];
+};
+
+export type CommentModel = {
+  __typename: "CommentModel";
+  content: Scalars["String"]["output"];
+  createdAt: Scalars["DateTime"]["output"];
+  id: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type CommentUpdateInput = {
+  content: Scalars["String"]["input"];
+};
+
+export const Difficulty = {
+  Easy: "EASY",
+  Hard: "HARD",
+  Medium: "MEDIUM",
+} as const;
+
+export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty];
+export const Gender = {
+  Female: "FEMALE",
+  Male: "MALE",
+} as const;
+
+export type Gender = (typeof Gender)[keyof typeof Gender];
+export type IngredientInputCreateAndUpdate = {
+  content: Scalars["String"]["input"];
+  iconUrl: Scalars["String"]["input"];
+  name: Scalars["String"]["input"];
+  price: Scalars["Float"]["input"];
+};
+
+export type IngredientModel = {
+  __typename: "IngredientModel";
+  createdAt: Scalars["DateTime"]["output"];
+  iconUrl: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["String"]["output"];
+  name: Maybe<Scalars["String"]["output"]>;
+  price: Maybe<Scalars["Float"]["output"]>;
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type Mutation = {
+  __typename: "Mutation";
+  IngredientDelete: IngredientModel;
+  createComment: CommentModel;
+  createIngredient: IngredientModel;
+  createRecipe: RecipeModel;
+  deleteComment: CommentModel;
+  deleteRecipeById: RecipeModel;
+  login: AuthResponse;
+  logout: Scalars["Boolean"]["output"];
+  register: AuthResponse;
+  toggleLike: ToggleLikeModel;
+  updateComment: CommentModel;
+  updateIngredient: IngredientModel;
+  updateProfile: User;
+  updateRecipe: RecipeModel;
+};
+
+export type MutationIngredientDeleteArgs = {
+  id: Scalars["String"]["input"];
+};
+
+export type MutationCreateCommentArgs = {
+  input: CommentCreateInput;
+};
+
+export type MutationCreateIngredientArgs = {
+  data: IngredientInputCreateAndUpdate;
+};
+
+export type MutationCreateRecipeArgs = {
+  input: RecipeInputCreateAndUpdate;
+};
+
+export type MutationDeleteCommentArgs = {
+  commentId: Scalars["String"]["input"];
+};
+
+export type MutationDeleteRecipeByIdArgs = {
+  id: Scalars["String"]["input"];
+};
+
+export type MutationLoginArgs = {
+  data: AuthInput;
+};
+
+export type MutationRegisterArgs = {
+  data: AuthInput;
+};
+
+export type MutationToggleLikeArgs = {
+  recipeId: Scalars["String"]["input"];
+};
+
+export type MutationUpdateCommentArgs = {
+  commentId: Scalars["String"]["input"];
+  input: CommentUpdateInput;
+};
+
+export type MutationUpdateIngredientArgs = {
+  data: IngredientInputCreateAndUpdate;
+  id: Scalars["String"]["input"];
+};
+
+export type MutationUpdateProfileArgs = {
+  data: UserInputUpdate;
+};
+
+export type MutationUpdateRecipeArgs = {
+  id: Scalars["String"]["input"];
+  input: RecipeInputCreateAndUpdate;
+};
+
+export type NutritionFact = {
+  __typename: "NutritionFact";
+  carbohydrates: Scalars["Float"]["output"];
+  createdAt: Scalars["DateTime"]["output"];
+  fats: Scalars["Float"]["output"];
+  fiber: Scalars["Float"]["output"];
+  id: Scalars["ID"]["output"];
+  proteins: Scalars["Float"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type NutritionFactInputCreateAndUpdate = {
+  carbohydrates: Scalars["Float"]["input"];
+  fats: Scalars["Float"]["input"];
+  fiber: Scalars["Float"]["input"];
+  proteins: Scalars["Float"]["input"];
+};
+
+export const NutritionGoal = {
+  Maintenance: "MAINTENANCE",
+  MuscleGain: "MUSCLE_GAIN",
+  WeightLoss: "WEIGHT_LOSS",
+} as const;
+
+export type NutritionGoal = (typeof NutritionGoal)[keyof typeof NutritionGoal];
+export type ProfileInputUpdate = {
+  age?: InputMaybe<Scalars["Int"]["input"]>;
+  bio?: InputMaybe<Scalars["String"]["input"]>;
+  fullName?: InputMaybe<Scalars["String"]["input"]>;
+  gender?: InputMaybe<Gender>;
+};
+
+export type ProfileModel = {
+  __typename: "ProfileModel";
+  age: Maybe<Scalars["Int"]["output"]>;
+  bio: Maybe<Scalars["String"]["output"]>;
+  createdAt: Scalars["DateTime"]["output"];
+  fullName: Scalars["String"]["output"];
+  gender: Maybe<Gender>;
+  id: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type Query = {
+  __typename: "Query";
+  Ingredient: IngredientModel;
+  Ingredients: Array<IngredientModel>;
+  adminRecipes: Array<RecipeModel>;
+  newTokens: AuthResponse;
+  profile: User;
+  recipeById: RecipeModel;
+  recipeBySlug: RecipeModel;
+};
+
+export type QueryIngredientArgs = {
+  id: Scalars["String"]["input"];
+};
+
+export type QueryRecipeByIdArgs = {
+  id: Scalars["String"]["input"];
+};
+
+export type QueryRecipeBySlugArgs = {
+  slug: Scalars["String"]["input"];
+};
+
+export type RecipeIngredientInput = {
+  ingredientId: Scalars["ID"]["input"];
+  quantity: Scalars["Float"]["input"];
+  unit: Unit;
+};
+
+export type RecipeIngredientModel = {
+  __typename: "RecipeIngredientModel";
+  createdAt: Scalars["DateTime"]["output"];
+  id: Scalars["ID"]["output"];
+  ingredient: IngredientModel;
+  quantity: Scalars["Float"]["output"];
+  unit: Unit;
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type RecipeInputCreateAndUpdate = {
+  calories: Scalars["Int"]["input"];
+  cookingTime: Scalars["Int"]["input"];
+  description: Scalars["String"]["input"];
+  difficulty: Difficulty;
+  ingredients?: InputMaybe<Array<RecipeIngredientInput>>;
+  nutritionFact?: InputMaybe<NutritionFactInputCreateAndUpdate>;
+  recipeSteps?: InputMaybe<Array<RecipeStepInput>>;
+  slug: Scalars["String"]["input"];
+  tags?: InputMaybe<Array<RecipeTagInput>>;
+  title: Scalars["String"]["input"];
+};
+
+export type RecipeModel = {
+  __typename: "RecipeModel";
+  author: User;
+  authorId: Scalars["String"]["output"];
+  calories: Scalars["Int"]["output"];
+  cookingTime: Scalars["Int"]["output"];
+  createdAt: Scalars["DateTime"]["output"];
+  description: Scalars["String"]["output"];
+  difficulty: Difficulty;
+  id: Scalars["ID"]["output"];
+  likes: Maybe<Scalars["Int"]["output"]>;
+  nutritionFact: Maybe<NutritionFact>;
+  recipeIngredients: Maybe<Array<RecipeIngredientModel>>;
+  recipeSteps: Maybe<Array<RecipeStepModel>>;
+  slug: Scalars["String"]["output"];
+  tags: Maybe<Array<RecipeTagModel>>;
+  title: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type RecipeStepInput = {
+  description: Scalars["String"]["input"];
+  order: Scalars["Int"]["input"];
+  title: Scalars["String"]["input"];
+};
+
+export type RecipeStepModel = {
+  __typename: "RecipeStepModel";
+  createdAt: Scalars["DateTime"]["output"];
+  description: Scalars["String"]["output"];
+  id: Scalars["ID"]["output"];
+  order: Scalars["Int"]["output"];
+  recipe: Maybe<RecipeModel>;
+  recipeId: Scalars["String"]["output"];
+  title: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type RecipeTagInput = {
+  name: Scalars["String"]["input"];
+};
+
+export type RecipeTagModel = {
+  __typename: "RecipeTagModel";
+  createdAt: Scalars["DateTime"]["output"];
+  id: Scalars["ID"]["output"];
+  name: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export const Role = {
+  Admin: "ADMIN",
+  User: "USER",
+} as const;
+
+export type Role = (typeof Role)[keyof typeof Role];
+export type ToggleLikeModel = {
+  __typename: "ToggleLikeModel";
+  liked: Scalars["Boolean"]["output"];
+};
+
+export const Unit = {
+  Cloves: "CLOVES",
+  Grams: "GRAMS",
+  Mililiters: "MILILITERS",
+  Pieces: "PIECES",
+  Tablespoons: "TABLESPOONS",
+  Teaspoons: "TEASPOONS",
+} as const;
+
+export type Unit = (typeof Unit)[keyof typeof Unit];
+export type User = {
+  __typename: "User";
+  createdAt: Scalars["DateTime"]["output"];
+  email: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  measurements: Maybe<BodyMeasurementModel>;
+  profile: Maybe<ProfileModel>;
+  role: Role;
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type UserInputUpdate = {
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  measurements?: InputMaybe<BodyMeasurementInputUpdate>;
+  password?: InputMaybe<Scalars["String"]["input"]>;
+  profile?: InputMaybe<ProfileInputUpdate>;
+};
+
+export type UserModel = {
+  __typename: "UserModel";
+  email: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  role: Role;
+};
+
+export type ProfileQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ProfileQuery = { profile: { __typename: "User"; id: string } };
+
+export const ProfileDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Profile" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "profile" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ProfileQuery, ProfileQueryVariables>;

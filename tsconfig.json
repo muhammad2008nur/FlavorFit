@@ -19,10 +19,12 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/constants/*": ["./src/shared/constants/*"]
     }
   },
   "include": [
+    "src/gql/**/*",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
