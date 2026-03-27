@@ -1,9 +1,10 @@
-"use client";
-
+import { LoginMutation } from "../../../shared/api/__generated__/graphql";
+("use client");
 interface Props {
   type: "login" | "register";
 }
 export function AuthForm({ type }: Props) {
+  LoginMutation();
   return (
     <div>
       <h1>{type === "register" ? "Register" : "Login"}</h1>

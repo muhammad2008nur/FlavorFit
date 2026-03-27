@@ -6,7 +6,7 @@ const config: CodegenConfig = {
   // This assumes that all your source files are in a top-level `src/` directory - you might need to adjust this to your file structure
   documents: [
     "src/shared/api/**/*.{graphql,ts,tsx}",
-    "src/features/**/*.graphql",
+    "src/features/**/*.{graphql,ts,tsx}",
   ],
 
   // Don't exit with non-zero status when there are no documents
