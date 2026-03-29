@@ -15,9 +15,11 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 type Documents = {
     "\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n": typeof types.LoginDocument,
+    "\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      accessToken\n      user {\n        email\n      }\n    }\n  }\n": typeof types.RegisterDocument,
 };
 const documents: Documents = {
     "\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n": types.LoginDocument,
+    "\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      accessToken\n      user {\n        email\n      }\n    }\n  }\n": types.RegisterDocument,
 };
 
 /**
@@ -38,6 +40,10 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      accessToken\n      user {\n        email\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      accessToken\n      user {\n        email\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
