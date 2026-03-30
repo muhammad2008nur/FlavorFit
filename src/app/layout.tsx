@@ -4,7 +4,7 @@ import "./globals.css";
 import { Provider } from "@/app/providers/Provider";
 import { cn } from "@/shared/utills";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
