@@ -8,14 +8,14 @@ interface Props {
 
 function AuthChangeType({ isLogin }: Props) {
   return isLogin ? (
-    <div>
+    <div className="mt-3 text-center">
       Don&apos;t have an account ?{" "}
       <Link href={PAGES.REGISTER} className="underline ml-1 ">
         Register
       </Link>
     </div>
   ) : (
-    <div>
+    <div className="mt-3 text-center">
       Already have an account ?{" "}
       <Link href={PAGES.LOGIN} className="underline">
         Login
