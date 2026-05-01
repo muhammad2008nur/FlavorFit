@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 @theme inline {
   --color-background: var(--background);
@@ -8,6 +7,7 @@
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-lato: var(--font-lato);
   --font-heading: var(--font-sans);
 
   --font-roboto: var(--font-roboto);
@@ -49,6 +49,9 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
 
+  --color-background-nav: var(--nav);
+  --color-foreground-nav: var(--nav-foreground);
+
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
 
@@ -71,7 +74,7 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
 
-  --primary: rgb(123, 96, 237);
+  --primary: rgb(156, 130, 250);
   --primary-dark: rgb(69, 43, 180);
   --primary-foreground: oklch(92.346% 0.00214 14.495);
 
@@ -84,6 +87,9 @@
   --accent: #ffd54f;
   --accent-dark: #ffb300;
   --accent-foreground: oklch(0.205 0 0);
+
+  --nav: #ebebeb;
+  --nav-foreground: #454444;
 
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
@@ -110,7 +116,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
@@ -118,6 +124,7 @@
   html {
     @apply font-sans text-[18px];
   }
+
   button:hover {
     @apply cursor-pointer;
   }

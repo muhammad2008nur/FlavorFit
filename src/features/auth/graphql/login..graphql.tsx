@@ -5,6 +5,8 @@ export const LOGIN = gql`
     login(data: $data) {
       user {
         email
+        id
+        role
       }
     }
   }

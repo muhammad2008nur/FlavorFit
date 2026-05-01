@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/shared/utils";
 import { useMutation } from "@apollo/client/react";
-import Image from "next/image";
+import { useApolloClient } from "@apollo/client/react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -12,10 +12,18 @@ import { AuthFormData } from "@/shared/types/auth-form.types";
 
 import { isEmailRegex } from "@/shared/utils/is-email.regex";
 
-import { LoginDocument } from "@/shared/api/__generated__/graphql";
+import {
+  LoginDocument,
+  LoginMutation,
+  LoginMutationVariables,
+  MeDocument,
+  RegisterMutation,
+  RegisterMutationVariables,
+} from "@/shared/api/__generated__/graphql";
 import { RegisterDocument } from "@/shared/api/__generated__/graphql";
 
 import AuthChangeType from "./AuthChangeType";
+import AuthImage from "./AuthImage";
 
 interface Props {
   type: "login" | "register";
@@ -44,20 +52,34 @@ export function AuthForm({ type }: Props) {
   
   
   */
-  const [auth, { loading }] = useMutation(
-    isLogin ? LoginDocument : RegisterDocument,
-    {
-      onCompleted: () => {
-        toast.success(
-          isLogin ? "Login successful!" : "Registration successful!",
-          { id: "auth-success" },
-        );
-      },
-      onError: () => {
-        toast.error("Email or password is incorrect!", { id: "auth-error" });
-      },
+  const client = useApolloClient();
+  /* 
+  
+  
+  */
+  const [auth, { loading }] = useMutation<
+    LoginMutation | RegisterMutation,
+    RegisterMutationVariables | LoginMutationVariables
+  >(isLogin ? LoginDocument : RegisterDocument, {
+    onCompleted: (data) => {
+      const authData = "login" in data ? data.login : data?.register;
+      client.writeQuery({
+        query: MeDocument,
+        data: {
+          me: authData?.user,
+        },
+      });
+
+      toast.success(
+        isLogin ? "Login successful!" : "Registration successful!",
+        { id: "auth-success" },
+      );
+      client.resetStore();
     },
-  );
+    onError: () => {
+      toast.error("Email or password is incorrect!", { id: "auth-error" });
+    },
+  });
   /* 
   
   
@@ -134,14 +156,7 @@ export function AuthForm({ type }: Props) {
           </div>
         </form>
         <AuthChangeType isLogin={isLogin} />
-        <Image
-          src="/salad.png"
-          className="absolute left-117 top-107 -rotate-15"
-          alt="Salad"
-          width={195}
-          height={195}
-          draggable={false}
-        />
+        <AuthImage />
       </div>
     </div>
   );

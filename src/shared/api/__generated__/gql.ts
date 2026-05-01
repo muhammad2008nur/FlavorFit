@@ -1,6 +1,7 @@
 /* eslint-disable */
-import * as types from './graphql';
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
+
+import * as types from "./graphql";
 
 /**
  * Map of all GraphQL operations in the project.
@@ -14,12 +15,14 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n": typeof types.LoginDocument,
-    "\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      accessToken\n      user {\n        email\n      }\n    }\n  }\n": typeof types.RegisterDocument,
+  "\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n": typeof types.LoginDocument;
+  "\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n": typeof types.RegisterDocument;
 };
 const documents: Documents = {
-    "\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n": types.LoginDocument,
-    "\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      accessToken\n      user {\n        email\n      }\n    }\n  }\n": types.RegisterDocument,
+  "\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n":
+    types.LoginDocument,
+  "\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n":
+    types.RegisterDocument,
 };
 
 /**
@@ -39,14 +42,19 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n"];
+export function graphql(
+  source: "\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n",
+): (typeof documents)["\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      accessToken\n      user {\n        email\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      accessToken\n      user {\n        email\n      }\n    }\n  }\n"];
+export function graphql(
+  source: "\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n",
+): (typeof documents)["\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      user {\n        email\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
+  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;
