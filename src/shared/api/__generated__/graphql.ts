@@ -126,7 +126,7 @@ export type Mutation = {
   toggleLike: ToggleLikeModel;
   updateComment: CommentModel;
   updateIngredient: IngredientModel;
-  updateProfile: User;
+  updateProfile: UserModel;
   updateRecipe: RecipeModel;
 };
 
@@ -245,7 +245,7 @@ export type Query = {
   Ingredient: IngredientModel;
   Ingredients: Array<IngredientModel>;
   adminRecipes: Array<RecipeModel>;
-  me: User;
+  me: UserModel;
   newTokens: AuthResponse;
   recipeById: RecipeModel;
   recipeBySlug: RecipeModel;
@@ -297,7 +297,7 @@ export type RecipeInputCreateAndUpdate = {
 
 export type RecipeModel = {
   __typename?: 'RecipeModel';
-  author: User;
+  author: UserModel;
   authorId: Scalars['String']['output'];
   calories: Scalars['Int']['output'];
   cookingTime: Scalars['Int']['output'];
@@ -364,17 +364,6 @@ export enum Unit {
   Teaspoons = 'TEASPOONS'
 }
 
-export type User = {
-  __typename?: 'User';
-  createdAt: Scalars['DateTime']['output'];
-  email: Scalars['String']['output'];
-  id: Scalars['String']['output'];
-  measurements?: Maybe<BodyMeasurementModel>;
-  profile?: Maybe<ProfileModel>;
-  role: Role;
-  updatedAt: Scalars['DateTime']['output'];
-};
-
 export type UserInputUpdate = {
   email?: InputMaybe<Scalars['String']['input']>;
   measurements?: InputMaybe<BodyMeasurementInputUpdate>;
@@ -384,9 +373,13 @@ export type UserInputUpdate = {
 
 export type UserModel = {
   __typename?: 'UserModel';
+  createdAt: Scalars['DateTime']['output'];
   email: Scalars['String']['output'];
   id: Scalars['String']['output'];
+  measurements?: Maybe<BodyMeasurementModel>;
+  profile?: Maybe<ProfileModel>;
   role: Role;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type LoginMutationVariables = Exact<{
@@ -399,7 +392,7 @@ export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Au
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', email: string, id: string, role: Role } };
+export type MeQuery = { __typename?: 'Query', me: { __typename?: 'UserModel', email: string, id: string, role: Role } };
 
 export type RegisterMutationVariables = Exact<{
   data: AuthInput;

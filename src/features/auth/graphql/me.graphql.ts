@@ -6,7 +6,6 @@ export const ME = gql`
       email
       id
       role
-      role
     }
   }
 `;

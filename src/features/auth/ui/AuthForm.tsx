@@ -97,7 +97,7 @@ export function AuthForm({ type }: Props) {
   */
   return (
     <div className="flex h-screen">
-      <div className="relation bg-linear-to-tr  from-violet-500 to-violet-400 w-sm m-auto text-primary-foreground p-5 shadow-lg rounded-2xl">
+      <div className="relative bg-linear-to-tr  from-violet-500 to-violet-400 w-sm m-auto text-primary-foreground p-5 shadow-lg rounded-2xl">
         <h1 className="text-center font-roboto font-extrabold text-4xl mb-5 mt-2">
           {isLogin ? "Sign In" : "Sign Up"}
         </h1>
