@@ -2,11 +2,14 @@
 import { cn } from "@/shared/utils";
 import { useMutation } from "@apollo/client/react";
 import { useApolloClient } from "@apollo/client/react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
+
+import { PAGES } from "@/shared/config/page.config";
 
 import { AuthFormData } from "@/shared/types/auth-form.types";
 
@@ -17,10 +20,10 @@ import {
   LoginMutation,
   LoginMutationVariables,
   MeDocument,
+  RegisterDocument,
   RegisterMutation,
   RegisterMutationVariables,
 } from "@/shared/api/__generated__/graphql";
-import { RegisterDocument } from "@/shared/api/__generated__/graphql";
 
 import AuthChangeType from "./AuthChangeType";
 import AuthImage from "./AuthImage";
@@ -30,43 +33,58 @@ interface Props {
 }
 
 export function AuthForm({ type }: Props) {
-  const isLogin = type === "login" ? true : false;
-  /* 
-  
+  const isLogin = type === "login";
+  /*
+
   */
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<AuthFormData>({
-    mode: "onChange",
-    reValidateMode: "onChange",
-    shouldFocusError: true,
-    delayError: 600,
+    mode: "onTouched",
+    reValidateMode: "onSubmit",
     defaultValues: {
       email: "",
       password: "",
     },
   });
-  /* 
-  
-  
+  /*
+
+
   */
   const client = useApolloClient();
-  /* 
-  
-  
+  const router = useRouter();
+  /*
+
+
   */
   const [auth, { loading }] = useMutation<
     LoginMutation | RegisterMutation,
-    RegisterMutationVariables | LoginMutationVariables
-  >(isLogin ? LoginDocument : RegisterDocument, {
-    onCompleted: (data) => {
-      const authData = "login" in data ? data.login : data?.register;
+    LoginMutationVariables | RegisterMutationVariables
+  >(isLogin ? LoginDocument : RegisterDocument); /*
+
+
+  */
+  const handleAuth = async (data: AuthFormData) => {
+    try {
+      const result = await auth({
+        variables: {
+          data,
+        },
+      });
+
+      const response = result.data;
+      if (!response) return;
+
+      const authData = "login" in response ? response.login : response.register;
+
+      await client.clearStore();
+
       client.writeQuery({
         query: MeDocument,
         data: {
-          me: authData?.user,
+          me: authData.user,
         },
       });
 
@@ -74,26 +92,16 @@ export function AuthForm({ type }: Props) {
         isLogin ? "Login successful!" : "Registration successful!",
         { id: "auth-success" },
       );
-      client.resetStore();
-    },
-    onError: () => {
+
+      router.replace(PAGES.DASHBOARD);
+    } catch (error) {
       toast.error("Email or password is incorrect!", { id: "auth-error" });
-    },
-  });
-  /* 
-  
-  
-  */
-  const handleAuth = (data: AuthFormData) => {
-    auth({
-      variables: {
-        data,
-      },
-    });
+      console.error("Authentication error:", error);
+    }
   };
-  /* 
-  
-  
+  /*
+
+
   */
   return (
     <div className="flex h-screen">

@@ -14,13 +14,17 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
+    "\n        query NewToken{\n            newTokens {\n                user{\n                    id\n                }\n            }\n        }\n": typeof types.NewTokenDocument,
     "\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n        id\n        role\n      }\n    }\n  }\n": typeof types.LoginDocument,
-    "\n  query Me {\n    me {\n      email\n      id\n      role\n      role\n    }\n  }\n": typeof types.MeDocument,
+    "\n  mutation Logout {\n    logout\n  }\n": typeof types.LogoutDocument,
+    "\n  query Me {\n    me {\n      email\n      id\n      role\n    }\n  }\n": typeof types.MeDocument,
     "\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      user {\n        email\n        id\n        role\n      }\n    }\n  }\n": typeof types.RegisterDocument,
 };
 const documents: Documents = {
+    "\n        query NewToken{\n            newTokens {\n                user{\n                    id\n                }\n            }\n        }\n": types.NewTokenDocument,
     "\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n        id\n        role\n      }\n    }\n  }\n": types.LoginDocument,
-    "\n  query Me {\n    me {\n      email\n      id\n      role\n      role\n    }\n  }\n": types.MeDocument,
+    "\n  mutation Logout {\n    logout\n  }\n": types.LogoutDocument,
+    "\n  query Me {\n    me {\n      email\n      id\n      role\n    }\n  }\n": types.MeDocument,
     "\n  mutation Register($data: AuthInput!) {\n    register(data: $data) {\n      user {\n        email\n        id\n        role\n      }\n    }\n  }\n": types.RegisterDocument,
 };
 
@@ -41,11 +45,19 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n        query NewToken{\n            newTokens {\n                user{\n                    id\n                }\n            }\n        }\n"): (typeof documents)["\n        query NewToken{\n            newTokens {\n                user{\n                    id\n                }\n            }\n        }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n        id\n        role\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation Login($data: AuthInput!) {\n    login(data: $data) {\n      user {\n        email\n        id\n        role\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Me {\n    me {\n      email\n      id\n      role\n      role\n    }\n  }\n"): (typeof documents)["\n  query Me {\n    me {\n      email\n      id\n      role\n      role\n    }\n  }\n"];
+export function graphql(source: "\n  mutation Logout {\n    logout\n  }\n"): (typeof documents)["\n  mutation Logout {\n    logout\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Me {\n    me {\n      email\n      id\n      role\n    }\n  }\n"): (typeof documents)["\n  query Me {\n    me {\n      email\n      id\n      role\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

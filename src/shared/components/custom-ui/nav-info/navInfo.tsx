@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Logout from "@/features/auth/ui/logout/Logout";
 
 import { Button } from "../../ui/button";
 import { NavInfoProps } from "./nav-info.types";
@@ -9,11 +9,13 @@ const NavInfo = ({ userInfo, icons }: NavInfoProps) => {
     <div className="flex items-center gap-6">
       <div className="flex gap-2">
         {icons.map((Icon, index) => (
-          <Button variant={"soft"} size={"icon"} className="" key={index}>
+          <Button variant={"soft"} size={"icon"} key={index}>
             <Icon className="text-[#15090996] size-5" key={index} />
           </Button>
         ))}
+        <Logout />
       </div>
+
       <UserInfo {...userInfo} />
     </div>
   );

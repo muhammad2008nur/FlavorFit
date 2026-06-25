@@ -1,5 +1,4 @@
 "use client";
-import { Icons } from "next/dist/lib/metadata/types/metadata-types";
 import Link from "next/link";
 
 import NavInfo from "@/shared/components/custom-ui/nav-info/navInfo";

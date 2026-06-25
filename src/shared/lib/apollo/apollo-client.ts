@@ -1,8 +1,11 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { httpLink } from "./links/apollo-http.link";
-import { ApolloLink } from "@apollo/client";
 import { IS_CLIENT } from "@/shared/constants/app.constants";
-const сlientApolloClient = new ApolloClient({
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloLink } from "@apollo/client";
+
+import { errorLink } from "./links/apollo-error.link";
+import { httpLink } from "./links/apollo-http.link";
+
+const clientApolloClient = new ApolloClient({
   link: ApolloLink.from([httpLink]),
   cache: new InMemoryCache(),
   devtools: {
@@ -32,5 +35,5 @@ const serverApolloClient = new ApolloClient({
 });
 
 export function getApolloClient() {
-  return IS_CLIENT ? сlientApolloClient : serverApolloClient;
+  return IS_CLIENT ? clientApolloClient : serverApolloClient;
 }
