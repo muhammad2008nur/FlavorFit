@@ -6,7 +6,7 @@ import { errorLink } from "./links/apollo-error.link";
 import { httpLink } from "./links/apollo-http.link";
 
 const clientApolloClient = new ApolloClient({
-  link: ApolloLink.from([httpLink]),
+  link: ApolloLink.from([errorLink, httpLink]),
   cache: new InMemoryCache(),
   devtools: {
     enabled: true,

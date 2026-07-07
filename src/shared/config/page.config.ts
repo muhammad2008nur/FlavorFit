@@ -10,4 +10,7 @@ export const PAGES = {
   AUTH: "/auth",
   REGISTER: "/auth/register",
   LOGIN: "/auth/login",
+  REQUEST_RESET_PASSWORD: "/auth/request-reset-password",
+  RESET_PASSWORD: "/auth/reset-password",
+  VERIFY_EMAIL: "/auth/verify-email",
 } as const;

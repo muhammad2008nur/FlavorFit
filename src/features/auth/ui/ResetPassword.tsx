@@ -1,10 +1,9 @@
 "use client";
 import { cn } from "@/shared/utils";
 import { useMutation } from "@apollo/client/react";
-import { useApolloClient } from "@apollo/client/react";
 import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -14,69 +13,49 @@ import { Input } from "@/shared/components/ui/input";
 
 import { PAGES } from "@/shared/config/page.config";
 
-import { AuthFormData } from "@/shared/types/auth-form.types";
+import { ResetFormData } from "@/shared/types/reset-form.types";
 
-import { isEmailRegex } from "@/shared/utils/is-email.regex";
+import { ResetPasswordDocument } from "@/shared/api/__generated__/graphql";
 
-import {
-  LoginDocument,
-  LoginMutation,
-  LoginMutationVariables,
-  MeDocument,
-  RegisterDocument,
-  RegisterMutation,
-  RegisterMutationVariables,
-} from "@/shared/api/__generated__/graphql";
-
-import AuthChangeType from "./AuthChangeType";
 import AuthImage from "./AuthImage";
 
-interface Props {
-  type: "login" | "register";
-}
-
-export function AuthForm({ type }: Props) {
-  const isLogin = type === "login";
-
+export function ResetPassword() {
   const ref = React.useRef<TurnstileInstance | null>(null);
   const turnstileSiteKey = process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY;
   const [turnstileToken, setTurnstileToken] = React.useState<string | null>(
     null,
   );
+  const searchParam = useSearchParams();
+  const token = searchParam.get("token");
 
   const {
     register,
     handleSubmit,
-
     formState: { errors, isValid },
-  } = useForm<AuthFormData>({
+  } = useForm({
     mode: "onTouched",
     reValidateMode: "onSubmit",
     defaultValues: {
-      email: "",
-      password: "",
+      newPassword: "",
     },
   });
 
-  const client = useApolloClient();
   const router = useRouter();
 
-  const [auth, { loading }] = useMutation<
-    LoginMutation | RegisterMutation,
-    LoginMutationVariables | RegisterMutationVariables
-  >(isLogin ? LoginDocument : RegisterDocument); /*
-
-
-  */
-  const handleAuth = async (data: AuthFormData) => {
-    if (!turnstileToken) {
-      toast.error("Please complete captcha");
+  const [auth, { loading }] = useMutation(ResetPasswordDocument);
+  const handleAuth = async (data: ResetFormData) => {
+    if (!turnstileToken || !token) {
+      toast.error("Error password reset", { id: "auth-error" });
       return;
     }
     try {
+      const newData = {
+        newPassword: data.newPassword,
+        token,
+      };
       const result = await auth({
         variables: {
-          data,
+          data: newData,
         },
         context: {
           headers: {
@@ -88,33 +67,17 @@ export function AuthForm({ type }: Props) {
       const response = result.data;
       if (!response) return;
 
-      const authData = "login" in response ? response.login : response.register;
+      toast.success("Reset password successful!", { id: "auth-success" });
 
-      await client.clearStore();
-
-      client.writeQuery({
-        query: MeDocument,
-        data: {
-          me: authData.user,
-        },
-      });
-
-      toast.success(
-        isLogin ? "Login successful!" : "Registration successful!",
-        { id: "auth-success" },
-      );
-
-      router.replace(PAGES.DASHBOARD);
-    } catch (e) {
-      toast.error("Error authorization !", { id: "auth-error" });
+      router.replace(PAGES.LOGIN);
+    } catch (error) {
+      toast.error("Error password reset", { id: "auth-error" });
+      console.error("Authentication error:", error);
       setTurnstileToken(null);
       ref.current?.reset();
     }
   };
-  /*
 
-
-  */
   return (
     <div className="flex h-screen">
       {turnstileSiteKey && (
@@ -137,37 +100,17 @@ export function AuthForm({ type }: Props) {
 
       <div className="relative bg-linear-to-tr  from-violet-500 to-violet-400 w-sm m-auto text-primary-foreground p-5 shadow-lg rounded-2xl">
         <h1 className="text-center font-roboto font-extrabold text-4xl mb-5 mt-2">
-          {isLogin ? "Sign In" : "Sign Up"}
+          RESET PASSWORD
         </h1>
         <form
           className="mt-5 space-y-4.5"
           onSubmit={(event) => {
-            handleSubmit(handleAuth)(event);
+            void handleSubmit(handleAuth)(event);
           }}
         >
           <div>
             <Input
-              {...register("email", {
-                required: "Поле обязательное",
-                pattern: {
-                  value: isEmailRegex,
-                  message: "Введите корректный email",
-                },
-              })}
-              type="email"
-              placeholder="Enter email:"
-              className={cn(
-                "pt-4.5 pb-4 pl-3 ",
-                errors.email && "border-red-500",
-              )}
-            />
-            {errors.email && (
-              <p className="text-destructive text-sm">{errors.email.message}</p>
-            )}
-          </div>
-          <div>
-            <Input
-              {...register("password", {
+              {...register("newPassword", {
                 required: "Поле обязательное",
                 minLength: {
                   value: 6,
@@ -178,15 +121,16 @@ export function AuthForm({ type }: Props) {
               placeholder="Enter password:"
               className={cn(
                 "py-4.5 pl-3 pb-4 ",
-                errors.password && "border-red-500",
+                errors.newPassword && "border-red-500",
               )}
             />
-            {errors.password && (
+            {errors.newPassword && (
               <p className="text-destructive text-sm mt-2">
-                {errors.password.message}
+                {errors.newPassword.message}
               </p>
             )}
           </div>
+
           <div className="text-center">
             <Button
               variant={"secondary"}
@@ -194,21 +138,10 @@ export function AuthForm({ type }: Props) {
               disabled={!isValid || loading || !turnstileToken}
               type="submit"
             >
-              {!isLogin ? "Register" : "Login"}
+              Change
             </Button>
           </div>
         </form>
-        {isLogin && (
-          <div className="text-center mt-4">
-            <Link
-              href={PAGES.REQUEST_RESET_PASSWORD}
-              className="text-sm text-white hover:underline"
-            >
-              Forgot password?
-            </Link>
-          </div>
-        )}
-        <AuthChangeType isLogin={isLogin} />
         <AuthImage />
       </div>
     </div>

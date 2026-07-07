@@ -23,6 +23,7 @@
       "@/constants/*": ["./src/shared/constants/*"]
     }
   },
+  "jsx": "react-jsx",
   "include": [
     "src/gql/**/*",
     "next-env.d.ts",
@@ -30,7 +31,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "../back-end-winter/src/utils/generate-token.ts"
   ],
   "exclude": ["node_modules"]
 }

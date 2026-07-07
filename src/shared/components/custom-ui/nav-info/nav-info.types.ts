@@ -6,6 +6,7 @@ export interface NavInfoProps {
 }
 export interface UserInfo {
   name: string;
+  isEmailVerified: boolean | null | undefined;
   username: string;
   avatarUrl: string;
 }

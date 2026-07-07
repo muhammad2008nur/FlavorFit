@@ -27,6 +27,7 @@ export function Header() {
           avatarUrl: "/path/to/avatar.jpg",
           name: "John Doe",
           username: user?.email || "johnd242525oe",
+          isEmailVerified: user?.isEmailVerified,
         }}
         icons={navInfoIcons}
       />
