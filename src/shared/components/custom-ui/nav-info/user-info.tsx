@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import type { UserInfo } from "./nav-info.types";
 
 const UserInfo = ({ name, username, isEmailVerified }: UserInfo) => {

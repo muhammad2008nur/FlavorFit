@@ -4,6 +4,7 @@ import { Inter, Lato, Roboto } from "next/font/google";
 
 import { Provider } from "@/app/providers/Provider";
 
+import { Header } from "../features/layout/header/Header";
 import "./globals.css";
 
 const inter = Inter({
@@ -46,7 +47,10 @@ export default function RootLayout({
           "antialiased",
         )}
       >
-        <Provider>{children}</Provider>
+        <Provider>
+          <Header />
+          {children}
+        </Provider>
       </body>
     </html>
   );

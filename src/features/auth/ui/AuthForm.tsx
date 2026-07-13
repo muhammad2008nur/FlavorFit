@@ -1,16 +1,10 @@
 "use client";
-import { cn } from "@/shared/utils";
 import { useMutation } from "@apollo/client/react";
 import { useApolloClient } from "@apollo/client/react";
-import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-
-import { Button } from "@/shared/components/ui/button";
-import { Input } from "@/shared/components/ui/input";
 
 import { PAGES } from "@/shared/config/page.config";
 
@@ -28,8 +22,12 @@ import {
   RegisterMutationVariables,
 } from "@/shared/api/__generated__/graphql";
 
+import { useTurnstileCaptcha } from "../hooks/useTurnstileCaptcha";
+
+import AuthCard from "./AuthCard";
 import AuthChangeType from "./AuthChangeType";
-import AuthImage from "./AuthImage";
+import AuthInputField from "./AuthInputField";
+import AuthSubmitButton from "./AuthSubmitButton";
 
 interface Props {
   type: "login" | "register";
@@ -38,11 +36,7 @@ interface Props {
 export function AuthForm({ type }: Props) {
   const isLogin = type === "login";
 
-  const ref = React.useRef<TurnstileInstance | null>(null);
-  const turnstileSiteKey = process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY;
-  const [turnstileToken, setTurnstileToken] = React.useState<string | null>(
-    null,
-  );
+  const captcha = useTurnstileCaptcha();
 
   const {
     register,
@@ -64,12 +58,10 @@ export function AuthForm({ type }: Props) {
   const [auth, { loading }] = useMutation<
     LoginMutation | RegisterMutation,
     LoginMutationVariables | RegisterMutationVariables
-  >(isLogin ? LoginDocument : RegisterDocument); /*
+  >(isLogin ? LoginDocument : RegisterDocument);
 
-
-  */
   const handleAuth = async (data: AuthFormData) => {
-    if (!turnstileToken) {
+    if (!captcha.token) {
       toast.error("Please complete captcha");
       return;
     }
@@ -80,7 +72,7 @@ export function AuthForm({ type }: Props) {
         },
         context: {
           headers: {
-            "cf-turnstile-token": turnstileToken,
+            "cf-turnstile-token": captcha.token,
           },
         },
       });
@@ -105,112 +97,62 @@ export function AuthForm({ type }: Props) {
       );
 
       router.replace(PAGES.DASHBOARD);
-    } catch (e) {
+    } catch {
       toast.error("Error authorization !", { id: "auth-error" });
-      setTurnstileToken(null);
-      ref.current?.reset();
+      captcha.reset();
     }
   };
-  /*
 
-
-  */
   return (
-    <div className="flex h-screen">
-      {turnstileSiteKey && (
-        <Turnstile
-          className="fixed bottom-4 right-4"
-          ref={ref}
-          siteKey={turnstileSiteKey}
-          onError={() => {
-            setTurnstileToken(null);
-            ref.current?.reset();
-          }}
-          onSuccess={(token) => {
-            setTurnstileToken(token);
-          }}
-          onExpire={() => {
-            setTurnstileToken(null);
-          }}
+    <AuthCard
+      title={isLogin ? "Sign In" : "Sign Up"}
+      captchaWidget={captcha.widget}
+    >
+      <form
+        className="mt-5 space-y-4.5"
+        onSubmit={(event) => {
+          handleSubmit(handleAuth)(event);
+        }}
+      >
+        <AuthInputField
+          type="email"
+          placeholder="Enter email:"
+          registration={register("email", {
+            required: "This field is required",
+            pattern: {
+              value: isEmailRegex,
+              message: "Enter a valid email",
+            },
+          })}
+          error={errors.email}
         />
+        <AuthInputField
+          type="password"
+          placeholder="Enter password:"
+          registration={register("password", {
+            required: "This field is required",
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters",
+            },
+          })}
+          error={errors.password}
+        />
+        <AuthSubmitButton disabled={!isValid || loading || !captcha.token}>
+          {!isLogin ? "Register" : "Login"}
+        </AuthSubmitButton>
+      </form>
+      {isLogin && (
+        <div className="text-center mt-4">
+          <Link
+            href={PAGES.REQUEST_RESET_PASSWORD}
+            className="text-sm text-white hover:underline"
+          >
+            Forgot password?
+          </Link>
+        </div>
       )}
-
-      <div className="relative bg-linear-to-tr  from-violet-500 to-violet-400 w-sm m-auto text-primary-foreground p-5 shadow-lg rounded-2xl">
-        <h1 className="text-center font-roboto font-extrabold text-4xl mb-5 mt-2">
-          {isLogin ? "Sign In" : "Sign Up"}
-        </h1>
-        <form
-          className="mt-5 space-y-4.5"
-          onSubmit={(event) => {
-            handleSubmit(handleAuth)(event);
-          }}
-        >
-          <div>
-            <Input
-              {...register("email", {
-                required: "Поле обязательное",
-                pattern: {
-                  value: isEmailRegex,
-                  message: "Введите корректный email",
-                },
-              })}
-              type="email"
-              placeholder="Enter email:"
-              className={cn(
-                "pt-4.5 pb-4 pl-3 ",
-                errors.email && "border-red-500",
-              )}
-            />
-            {errors.email && (
-              <p className="text-destructive text-sm">{errors.email.message}</p>
-            )}
-          </div>
-          <div>
-            <Input
-              {...register("password", {
-                required: "Поле обязательное",
-                minLength: {
-                  value: 6,
-                  message: "Пароль должен быть не менее 6 символов",
-                },
-              })}
-              type="password"
-              placeholder="Enter password:"
-              className={cn(
-                "py-4.5 pl-3 pb-4 ",
-                errors.password && "border-red-500",
-              )}
-            />
-            {errors.password && (
-              <p className="text-destructive text-sm mt-2">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-          <div className="text-center">
-            <Button
-              variant={"secondary"}
-              size={"lg"}
-              disabled={!isValid || loading || !turnstileToken}
-              type="submit"
-            >
-              {!isLogin ? "Register" : "Login"}
-            </Button>
-          </div>
-        </form>
-        {isLogin && (
-          <div className="text-center mt-4">
-            <Link
-              href={PAGES.REQUEST_RESET_PASSWORD}
-              className="text-sm text-white hover:underline"
-            >
-              Forgot password?
-            </Link>
-          </div>
-        )}
-        <AuthChangeType isLogin={isLogin} />
-        <AuthImage />
-      </div>
-    </div>
+      <AuthChangeType isLogin={isLogin} />
+    </AuthCard>
   );
 }

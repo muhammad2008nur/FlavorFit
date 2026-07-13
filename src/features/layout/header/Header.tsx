@@ -12,7 +12,7 @@ import { navMenuInfo } from "./nav-menu.data";
 export function Header() {
   const { user } = useAuth();
   return (
-    <header className="p-7 gap-7.5 items-center  flex justify-between ">
+    <header className="p-7 gap-7.5 items-center bg-background  flex justify-between ">
       <div className="flex gap-8 ">
         <Link
           className="size-10 flex text-2xl font-lato rounded-full font-extrabold text-white bg-linear-to-tl from-[#816ae8] to-[#9d8af8] items-center justify-center "
