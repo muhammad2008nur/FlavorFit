@@ -3,14 +3,13 @@ import { SquarePen } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
-import { AvatarFallback } from "@/shared/components/ui/avatar";
-
 import "@/shared/api/__generated__/graphql";
 
 interface AvatarUpload {
-  avatarUrl?: string;
+  avatarUrl?: string | null;
+  onAvatarUpload: () => void;
 }
-function AvatarUpload({ avatarUrl }: AvatarUpload) {
+function AvatarUpload({ avatarUrl, onAvatarUpload }: AvatarUpload) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -19,21 +18,25 @@ function AvatarUpload({ avatarUrl }: AvatarUpload) {
     if (!file) return;
     const formData = new FormData();
     formData.append("file", file);
-    await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/media-upload/avatar`, {
-      method: "POST",
-      body: formData,
-      credentials: "include",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/media-upload/avatar`,
+      {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      },
+    );
+    if (res.ok) onAvatarUpload();
   };
   return (
-    <div className="flex items-end mt-1.5">
+    <div className="flex items-end mt-1.5 shrink-0">
       {avatarUrl ? (
         <Image
           alt="avatar"
-          className="absolute rounded-full"
-          width={40}
-          height={40}
-          src={avatarUrl}
+          className="size-15 rounded-full object-cover"
+          height={55}
+          width={55}
+          src={`${process.env.NEXT_PUBLIC_SERVER_URL}${avatarUrl}`}
         />
       ) : (
         <div className="flex size-13 items-center justify-center rounded-full bg-gray-300 text-sm font-medium">

@@ -1,6 +1,6 @@
 import { cn } from "@/shared/utils";
 import type { Metadata } from "next";
-import { Inter, Lato, Roboto } from "next/font/google";
+import { Inter, Lato, Outfit, Roboto } from "next/font/google";
 
 import { Provider } from "@/app/providers/Provider";
 
@@ -23,6 +23,11 @@ const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700", "300"],
 });
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -44,13 +49,11 @@ export default function RootLayout({
           roboto.variable,
           lato.variable,
           inter.variable,
+          outfit.variable,
           "antialiased",
         )}
       >
-        <Provider>
-          <Header />
-          {children}
-        </Provider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );

@@ -7,9 +7,6 @@ export const ME = gql`
       id
       role
       isEmailVerified
-      profile {
-        avatarUrl
-      }
     }
   }
 `;
