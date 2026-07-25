@@ -1,21 +1,7 @@
 "use client";
 
-import { Link2, Mail, Mars, UserRound, Venus } from "lucide-react";
+import { Mail, UserRound } from "lucide-react";
 import { useState } from "react";
-
-import { Button } from "@/shared/components/ui/button";
-// import { Select } from "radix-ui";
-
-import { Input } from "@/shared/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/components/ui/select";
-import { Textarea } from "@/shared/components/ui/textarea";
 
 import AvatarUpload from "./general-information-fields/AvatarUpload";
 import ProfileField from "./general-information-fields/ProfileField";
@@ -37,6 +23,20 @@ const GeneralInformation = ({
     "https://example.com",
     "https://example.org",
     "https://example.net",
+  ];
+  const AgeArray = Array.from({ length: 91 }, (_, i) => ({
+    value: String(i + 10),
+    label: `${i + 10} y.o.`,
+  }));
+  const GenderArray = [
+    {
+      value: "male",
+      label: "Male",
+    },
+    {
+      value: "female",
+      label: "Female",
+    },
   ];
 
   return (
@@ -68,8 +68,13 @@ const GeneralInformation = ({
             placeholder={"Choose your gender"}
             gender={gender}
             setGender={setGender}
+            type={GenderArray}
           />
-          <SelectField label={"Age"} placeholder={"Choose your age"} />
+          <SelectField
+            type={AgeArray}
+            label={"Age"}
+            placeholder={"Choose your age"}
+          />
         </div>
       </div>
       <TextArea label="Bio" />

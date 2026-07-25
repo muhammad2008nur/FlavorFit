@@ -21,7 +21,7 @@ const ProfileLinks: FunctionComponent<ProfileLinksProps> = ({ urls }) => {
             <Link2 color="#707070" />
             <a
               href={url}
-              className="rounded-4xl text-field-foreground w-full outline-0 border-0 block"
+              className="rounded-4xl font-inter text-field-foreground text-sm w-full outline-0 border-0 font-normal"
               key={i}
             >
               {url}

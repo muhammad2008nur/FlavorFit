@@ -24,7 +24,7 @@ const ProfileField: FunctionComponent<ProfileFieldProps> = ({
         <Input
           type={type}
           placeholder={placeholder}
-          className="w-full focus-visible:ring-0"
+          className="w-full focus-visible:ring-0 "
         ></Input>
       </div>
     </label>

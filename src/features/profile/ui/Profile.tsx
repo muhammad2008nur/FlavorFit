@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@apollo/client/react";
 import { UserCog } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Input } from "@/shared/components/ui/input";
@@ -14,6 +14,7 @@ import GeneralInformation from "./GeneralInformationForms";
 // interface ProfileProps {}
 
 const Profile = () => {
+  // const [changesAccess, serChangesAccess] = useState(false);
   //   const { register } = useForm();
   const { data, refetch } = useQuery(MeDocument);
   return (
@@ -26,7 +27,7 @@ const Profile = () => {
         </div>{" "}
         <div className="flex justify-center gap-15">
           <div
-            className=" rounded-4xl outline-background outline-2 px-4 py-4 mt-5 w-6/12
+            className=" rounded-4xl outline-background outline-2 px-4 py-5.5 mt-5 w-6/12
 "
           >
             <GeneralInformation
@@ -34,7 +35,7 @@ const Profile = () => {
               onAvatarUpload={() => refetch()}
             />
           </div>
-          <div className="rounded-4xl outline-background outline-2 px-4 py-4 mt-5 w-6/12">
+          <div className="rounded-4xl outline-background outline-2 px-4 py-5.5 mt-5 w-6/12">
             <BodyMeasurements />
           </div>
         </div>

@@ -6,13 +6,13 @@ interface TextAreaProps {
   label: string;
 }
 
-const TextArea: FunctionComponent<TextAreaProps> = () => {
+const TextArea: FunctionComponent<TextAreaProps> = ({ label }) => {
   return (
     <div className="py-2">
       <label className="text-sm text-field-foreground/60 font-light">
-        Bio
+        {label}
         <div className="bg-field rounded-4xl">
-          <Textarea className="text-field-foreground font-bold" />
+          <Textarea className="text-field-foreground font-medium" />
         </div>
       </label>
     </div>
