@@ -20,6 +20,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
 
         soft: "bg-[#ffffff] p-3.5 size-10 flex items-center justify-center rounded-full hover:bg-gray-100/80",
+        accent: "bg-accent text-field-foreground rounded-3xl py-2 px-5",
       },
       size: {
         default:

@@ -5,11 +5,13 @@ export const UPDATE_PROFILE = gql`
     updateProfile(data: $data) {
       id
       email
-
       profile {
+        id
         age
         bio
         fullName
+        gender
+        avatarUrl
       }
       measurements {
         activityLevel

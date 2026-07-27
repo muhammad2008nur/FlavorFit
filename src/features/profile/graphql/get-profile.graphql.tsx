@@ -6,10 +6,12 @@ export const GET_PROFILE = gql`
       id
       email
       profile {
+        id
         age
         bio
         fullName
         gender
+        avatarUrl
       }
       measurements {
         activityLevel
