@@ -10,7 +10,9 @@
 
 | Вход | Профиль |
 |---|---|
-| ![Вход](docs/login.png) | ![Профиль](docs/profile.png) |
+| <img width="1513" height="784" alt="image" src="https://github.com/user-attachments/assets/5320db40-770f-483a-964a-0c0a14fed391" />
+ | <img width="1512" height="811" alt="image" src="https://github.com/user-attachments/assets/eeadc984-6fed-4c04-b196-de6fe417e4ea" />
+ | 
 
 ## Что работает
 
