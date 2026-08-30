@@ -4,7 +4,7 @@ function AuthImage() {
   return (
     <Image
       src="/salad.png"
-      className="absolute -right-10 -bottom-10 -rotate-15"
+      className="absolute -left-20 -bottom-15 rotate-10 z-0 pointer-events-none"
       alt="Salad"
       width={195}
       height={195}

@@ -1,8 +1,9 @@
 "use client";
 
 import { Mail, UserRound } from "lucide-react";
-import { useState } from "react";
 import { Control, UseFormRegister } from "react-hook-form";
+
+import { Gender } from "@/shared/api/__generated__/graphql";
 
 import { ProfileData } from "../profile.types";
 import AvatarUpload from "./general-information-fields/AvatarUpload";
@@ -21,6 +22,8 @@ interface GeneralInformationProps {
     fullName: "fullName";
     age: "age";
     gender: "gender";
+    bio: "bio";
+    sites: "sites";
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<ProfileData, any, ProfileData>;
@@ -34,23 +37,17 @@ const GeneralInformation = ({
   formName,
   control,
 }: GeneralInformationProps) => {
-  const [gender, setGender] = useState("");
-  const urls = [
-    "https://example.com",
-    "https://example.org",
-    "https://example.net",
-  ];
   const AgeArray = Array.from({ length: 91 }, (_, i) => ({
     value: String(i + 10),
     label: `${i + 10} y.o.`,
   }));
   const GenderArray = [
     {
-      value: "male",
+      value: Gender.Male,
       label: "Male",
     },
     {
-      value: "female",
+      value: Gender.Female,
       label: "Female",
     },
   ];
@@ -92,8 +89,6 @@ const GeneralInformation = ({
             formName={formName.gender}
             label={"Gender"}
             placeholder={"Choose your gender"}
-            gender={gender}
-            setGender={setGender}
             type={GenderArray}
           />
           <SelectField
@@ -107,8 +102,13 @@ const GeneralInformation = ({
           />
         </div>
       </div>
-      <TextArea label="Bio" />
-      <ProfileLinks urls={urls} />
+      <TextArea
+        isEditing={isEditing}
+        formName={formName.bio}
+        register={register}
+        label="Bio"
+      />
+      <ProfileLinks control={control} isEditing={isEditing} />
     </div>
   );
 };

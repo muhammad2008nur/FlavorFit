@@ -1,4 +1,4 @@
-"user server";
+"use server";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/shared/constants/app.constants";
 import { CombinedGraphQLErrors } from "@apollo/client";
 import { NextResponse } from "next/server";

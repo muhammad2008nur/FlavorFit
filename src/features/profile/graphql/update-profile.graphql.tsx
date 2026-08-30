@@ -12,6 +12,7 @@ export const UPDATE_PROFILE = gql`
         fullName
         gender
         avatarUrl
+        sites
       }
       measurements {
         activityLevel

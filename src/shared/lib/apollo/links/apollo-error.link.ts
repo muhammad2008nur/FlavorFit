@@ -25,6 +25,5 @@ export const errorLink = new ErrorLink(({ operation, error, forward }) => {
       }
     }
   }
-  // Tutor has a bit another way.
   return;
 });

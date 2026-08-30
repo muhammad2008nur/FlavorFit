@@ -12,13 +12,13 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select";
 
+import { Gender } from "@/shared/api/__generated__/graphql";
+
 import { ProfileData } from "../../profile.types";
 
 interface SelectFieldProps {
   label: string;
   placeholder: string;
-  gender?: string;
-  setGender?: (gender: string) => void;
   type: Array<{
     value: string;
     label: string;
@@ -31,14 +31,11 @@ interface SelectFieldProps {
 }
 
 const SelectField: FunctionComponent<SelectFieldProps> = ({
-  gender,
   label,
   placeholder,
-  setGender,
   type,
   isEditing,
   formName,
-  register,
   control,
 }) => {
   return (
@@ -48,38 +45,48 @@ const SelectField: FunctionComponent<SelectFieldProps> = ({
         {label}
 
         <div className="flex items-center gap-2 rounded-full mt-0.5 bg-field px-3">
-          {gender === "male" ? (
-            <Mars color="#707070" width={22} className="shrink-0" />
-          ) : gender === "female" ? (
-            <Venus color="#707070" width={22} className="shrink-0" />
-          ) : gender === undefined ? (
-            ""
-          ) : (
-            <UserCog color="#707070" width={22} className="shrink-0" />
-          )}
           <Controller
             name={formName}
             control={control}
-            render={({ field }) => (
-              <Select
-                value={gender && gender}
-                onValueChange={setGender && setGender}
-                disabled={!isEditing}
-              >
-                <SelectTrigger className="w-full border-0 font-medium data-placeholder:font-light shadow-none px-0 h-9 bg-transparent  text-sm text-field-foreground">
-                  <SelectValue placeholder={placeholder} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {type.map((item) => (
-                      <SelectItem key={item.value} value={item.value}>
-                        {item.label}
-                      </SelectItem>
+            render={({ field }) => {
+              const selected =
+                field.value == null ? undefined : String(field.value);
+
+              return (
+                <>
+                  {formName === "gender" &&
+                    (selected === Gender.Male ? (
+                      <Mars color="#707070" width={22} className="shrink-0" />
+                    ) : selected === Gender.Female ? (
+                      <Venus color="#707070" width={22} className="shrink-0" />
+                    ) : (
+                      <UserCog
+                        color="#707070"
+                        width={22}
+                        className="shrink-0"
+                      />
                     ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            )}
+                  <Select
+                    value={selected}
+                    onValueChange={field.onChange}
+                    disabled={!isEditing}
+                  >
+                    <SelectTrigger className="w-full border-0 font-medium data-placeholder:font-light shadow-none px-0 h-9 bg-transparent  text-sm text-field-foreground">
+                      <SelectValue placeholder={placeholder} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {type.map((item) => (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </>
+              );
+            }}
           />
         </div>
       </label>
