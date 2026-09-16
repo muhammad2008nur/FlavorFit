@@ -1,24 +1,23 @@
 import { LucideIcon } from "lucide-react";
 import { FunctionComponent } from "react";
-import { UseFormRegister } from "react-hook-form";
-
+import { useFormContext } from "react-hook-form";
+import { ProfileFormInput } from "../../profile-schema.zod";
 import { Input } from "@/shared/components/ui/input";
 
-import { ProfileData } from "../../profile.types";
 
 interface MeasurementFieldProps {
   label: string;
   Icon: LucideIcon;
   metric: string;
-  register: UseFormRegister<ProfileData>;
+  // register: UseFormRegister<ProfileData>;
   formName:
-    | "growth"
-    | "currentWeight"
-    | "desiredWeight"
-    | "waist"
-    | "chest"
-    | "thigh"
-    | "arm";
+  | "growth"
+  | "currentWeight"
+  | "desiredWeight"
+  | "waist"
+  | "chest"
+  | "thigh"
+  | "arm";
   isEditing: boolean;
 }
 
@@ -26,10 +25,11 @@ const MeasurementField: FunctionComponent<MeasurementFieldProps> = ({
   label,
   Icon,
   metric,
-  register,
+  // register,
   formName,
   isEditing,
 }) => {
+  const { register } = useFormContext<ProfileFormInput>()
   return (
     <label className="text-field-foreground/60 text-[15px] font-normal">
       {label}

@@ -1,119 +1,133 @@
 /* eslint-disable */
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = T | null | undefined;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T,
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never;
+    };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
   /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
-  DateTime: { input: any; output: any; }
+  DateTime: { input: any; output: any };
 };
 
 export enum ActivityLevel {
-  Active = 'ACTIVE',
-  ExtraActive = 'EXTRA_ACTIVE',
-  Light = 'LIGHT',
-  Moderately = 'MODERATELY',
-  Sedentary = 'SEDENTARY'
+  Active = "ACTIVE",
+  ExtraActive = "EXTRA_ACTIVE",
+  Light = "LIGHT",
+  Moderately = "MODERATELY",
+  Sedentary = "SEDENTARY",
 }
 
 export type AuthInput = {
-  email: Scalars['String']['input'];
-  password: Scalars['String']['input'];
+  email: Scalars["String"]["input"];
+  password: Scalars["String"]["input"];
 };
 
 export type AuthResponse = {
-  __typename?: 'AuthResponse';
+  __typename?: "AuthResponse";
   user: UserModel;
 };
 
 export type BodyMeasurementInputUpdate = {
   activityLevel?: InputMaybe<ActivityLevel>;
-  armCm?: InputMaybe<Scalars['Int']['input']>;
-  chestCm?: InputMaybe<Scalars['Int']['input']>;
-  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
-  goalWeightKg?: InputMaybe<Scalars['Int']['input']>;
-  heightCm?: InputMaybe<Scalars['Int']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
+  armCm?: InputMaybe<Scalars["Int"]["input"]>;
+  chestCm?: InputMaybe<Scalars["Int"]["input"]>;
+  createdAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+  goalWeightKg?: InputMaybe<Scalars["Int"]["input"]>;
+  heightCm?: InputMaybe<Scalars["Int"]["input"]>;
+  id?: InputMaybe<Scalars["String"]["input"]>;
   nutritionGoal?: InputMaybe<NutritionGoal>;
-  thighCm?: InputMaybe<Scalars['Int']['input']>;
-  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
-  waistCm?: InputMaybe<Scalars['Int']['input']>;
-  weightKg?: InputMaybe<Scalars['Int']['input']>;
+  thighCm?: InputMaybe<Scalars["Int"]["input"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
+  waistCm?: InputMaybe<Scalars["Int"]["input"]>;
+  weightKg?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type BodyMeasurementModel = {
-  __typename?: 'BodyMeasurementModel';
+  __typename?: "BodyMeasurementModel";
   activityLevel?: Maybe<ActivityLevel>;
-  armCm?: Maybe<Scalars['Int']['output']>;
-  chestCm?: Maybe<Scalars['Int']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  goalWeightKg?: Maybe<Scalars['Int']['output']>;
-  heightCm?: Maybe<Scalars['Int']['output']>;
-  id: Scalars['String']['output'];
+  armCm?: Maybe<Scalars["Int"]["output"]>;
+  chestCm?: Maybe<Scalars["Int"]["output"]>;
+  createdAt: Scalars["DateTime"]["output"];
+  goalWeightKg?: Maybe<Scalars["Int"]["output"]>;
+  heightCm?: Maybe<Scalars["Int"]["output"]>;
+  id: Scalars["String"]["output"];
   nutritionGoal?: Maybe<NutritionGoal>;
-  thighCm?: Maybe<Scalars['Int']['output']>;
-  updatedAt: Scalars['DateTime']['output'];
-  waistCm?: Maybe<Scalars['Int']['output']>;
-  weightKg?: Maybe<Scalars['Int']['output']>;
+  thighCm?: Maybe<Scalars["Int"]["output"]>;
+  updatedAt: Scalars["DateTime"]["output"];
+  waistCm?: Maybe<Scalars["Int"]["output"]>;
+  weightKg?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type CommentCreateInput = {
-  content: Scalars['String']['input'];
-  recipeId: Scalars['String']['input'];
+  content: Scalars["String"]["input"];
+  recipeId: Scalars["String"]["input"];
 };
 
 export type CommentModel = {
-  __typename?: 'CommentModel';
-  content: Scalars['String']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
+  __typename?: "CommentModel";
+  content: Scalars["String"]["output"];
+  createdAt: Scalars["DateTime"]["output"];
+  id: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
 };
 
 export type CommentUpdateInput = {
-  content: Scalars['String']['input'];
+  content: Scalars["String"]["input"];
 };
 
 export enum Difficulty {
-  Easy = 'EASY',
-  Hard = 'HARD',
-  Medium = 'MEDIUM'
+  Easy = "EASY",
+  Hard = "HARD",
+  Medium = "MEDIUM",
 }
 
 export enum Gender {
-  Female = 'FEMALE',
-  Male = 'MALE'
+  Female = "FEMALE",
+  Male = "MALE",
 }
 
 export type IngredientInputCreateAndUpdate = {
-  content: Scalars['String']['input'];
-  iconUrl: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  price: Scalars['Float']['input'];
+  content: Scalars["String"]["input"];
+  iconUrl: Scalars["String"]["input"];
+  name: Scalars["String"]["input"];
+  price: Scalars["Float"]["input"];
 };
 
 export type IngredientModel = {
-  __typename?: 'IngredientModel';
-  createdAt: Scalars['DateTime']['output'];
-  iconUrl?: Maybe<Scalars['String']['output']>;
-  id: Scalars['String']['output'];
-  name?: Maybe<Scalars['String']['output']>;
-  price?: Maybe<Scalars['Float']['output']>;
-  updatedAt: Scalars['DateTime']['output'];
+  __typename?: "IngredientModel";
+  createdAt: Scalars["DateTime"]["output"];
+  iconUrl?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["String"]["output"];
+  name?: Maybe<Scalars["String"]["output"]>;
+  price?: Maybe<Scalars["Float"]["output"]>;
+  updatedAt: Scalars["DateTime"]["output"];
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
+  __typename?: "Mutation";
   IngredientDelete: IngredientModel;
   createComment: CommentModel;
   createIngredient: IngredientModel;
@@ -121,148 +135,132 @@ export type Mutation = {
   deleteComment: CommentModel;
   deleteRecipeById: RecipeModel;
   login: AuthResponse;
-  logout: Scalars['Boolean']['output'];
+  logout: Scalars["Boolean"]["output"];
   register: AuthResponse;
-  requestPasswordReset: Scalars['Boolean']['output'];
-  resetPassword: Scalars['Boolean']['output'];
+  requestPasswordReset: Scalars["Boolean"]["output"];
+  resetPassword: Scalars["Boolean"]["output"];
   toggleLike: ToggleLikeModel;
   updateComment: CommentModel;
   updateIngredient: IngredientModel;
   updateProfile: UserModel;
   updateRecipe: RecipeModel;
-  verifyEmail: Scalars['Boolean']['output'];
+  verifyEmail: Scalars["Boolean"]["output"];
 };
-
 
 export type MutationIngredientDeleteArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars["String"]["input"];
 };
-
 
 export type MutationCreateCommentArgs = {
   input: CommentCreateInput;
 };
 
-
 export type MutationCreateIngredientArgs = {
   data: IngredientInputCreateAndUpdate;
 };
-
 
 export type MutationCreateRecipeArgs = {
   input: RecipeInputCreateAndUpdate;
 };
 
-
 export type MutationDeleteCommentArgs = {
-  commentId: Scalars['String']['input'];
+  commentId: Scalars["String"]["input"];
 };
-
 
 export type MutationDeleteRecipeByIdArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars["String"]["input"];
 };
-
 
 export type MutationLoginArgs = {
   data: AuthInput;
 };
 
-
 export type MutationRegisterArgs = {
   data: AuthInput;
 };
-
 
 export type MutationRequestPasswordResetArgs = {
   data: RequestPasswordResetTokenInput;
 };
 
-
 export type MutationResetPasswordArgs = {
   data: ResetPasswordInput;
 };
 
-
 export type MutationToggleLikeArgs = {
-  recipeId: Scalars['String']['input'];
+  recipeId: Scalars["String"]["input"];
 };
 
-
 export type MutationUpdateCommentArgs = {
-  commentId: Scalars['String']['input'];
+  commentId: Scalars["String"]["input"];
   input: CommentUpdateInput;
 };
 
-
 export type MutationUpdateIngredientArgs = {
   data: IngredientInputCreateAndUpdate;
-  id: Scalars['String']['input'];
+  id: Scalars["String"]["input"];
 };
-
 
 export type MutationUpdateProfileArgs = {
   data: UserInputUpdate;
 };
 
-
 export type MutationUpdateRecipeArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars["String"]["input"];
   input: RecipeInputCreateAndUpdate;
 };
 
-
 export type MutationVerifyEmailArgs = {
-  token: Scalars['String']['input'];
+  token: Scalars["String"]["input"];
 };
 
 export type NutritionFact = {
-  __typename?: 'NutritionFact';
-  carbohydrates: Scalars['Float']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  fats: Scalars['Float']['output'];
-  fiber: Scalars['Float']['output'];
-  id: Scalars['ID']['output'];
-  proteins: Scalars['Float']['output'];
-  updatedAt: Scalars['DateTime']['output'];
+  __typename?: "NutritionFact";
+  carbohydrates: Scalars["Float"]["output"];
+  createdAt: Scalars["DateTime"]["output"];
+  fats: Scalars["Float"]["output"];
+  fiber: Scalars["Float"]["output"];
+  id: Scalars["ID"]["output"];
+  proteins: Scalars["Float"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
 };
 
 export type NutritionFactInputCreateAndUpdate = {
-  carbohydrates: Scalars['Float']['input'];
-  fats: Scalars['Float']['input'];
-  fiber: Scalars['Float']['input'];
-  proteins: Scalars['Float']['input'];
+  carbohydrates: Scalars["Float"]["input"];
+  fats: Scalars["Float"]["input"];
+  fiber: Scalars["Float"]["input"];
+  proteins: Scalars["Float"]["input"];
 };
 
 export enum NutritionGoal {
-  Maintenance = 'MAINTENANCE',
-  MuscleGain = 'MUSCLE_GAIN',
-  WeightLoss = 'WEIGHT_LOSS'
+  Maintenance = "MAINTENANCE",
+  MuscleGain = "MUSCLE_GAIN",
+  WeightLoss = "WEIGHT_LOSS",
 }
 
 export type ProfileInputUpdate = {
-  age?: InputMaybe<Scalars['Int']['input']>;
-  bio?: InputMaybe<Scalars['String']['input']>;
-  fullName?: InputMaybe<Scalars['String']['input']>;
+  age?: InputMaybe<Scalars["Int"]["input"]>;
+  bio?: InputMaybe<Scalars["String"]["input"]>;
+  fullName?: InputMaybe<Scalars["String"]["input"]>;
   gender?: InputMaybe<Gender>;
-  sites?: InputMaybe<Array<Scalars['String']['input']>>;
+  sites?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type ProfileModel = {
-  __typename?: 'ProfileModel';
-  age?: Maybe<Scalars['Int']['output']>;
-  avatarUrl?: Maybe<Scalars['String']['output']>;
-  bio?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['DateTime']['output'];
-  fullName: Scalars['String']['output'];
+  __typename?: "ProfileModel";
+  age?: Maybe<Scalars["Int"]["output"]>;
+  avatarUrl?: Maybe<Scalars["String"]["output"]>;
+  bio?: Maybe<Scalars["String"]["output"]>;
+  createdAt: Scalars["DateTime"]["output"];
+  fullName: Scalars["String"]["output"];
   gender?: Maybe<Gender>;
-  id: Scalars['String']['output'];
-  sites: Array<Scalars['String']['output']>;
-  updatedAt: Scalars['DateTime']['output'];
+  id: Scalars["String"]["output"];
+  sites: Array<Scalars["String"]["output"]>;
+  updatedAt: Scalars["DateTime"]["output"];
 };
 
 export type Query = {
-  __typename?: 'Query';
+  __typename?: "Query";
   Ingredient: IngredientModel;
   Ingredients: Array<IngredientModel>;
   adminRecipes: Array<RecipeModel>;
@@ -272,217 +270,833 @@ export type Query = {
   recipeBySlug: RecipeModel;
 };
 
-
 export type QueryIngredientArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars["String"]["input"];
 };
-
 
 export type QueryRecipeByIdArgs = {
-  id: Scalars['String']['input'];
+  id: Scalars["String"]["input"];
 };
 
-
 export type QueryRecipeBySlugArgs = {
-  slug: Scalars['String']['input'];
+  slug: Scalars["String"]["input"];
 };
 
 export type RecipeIngredientInput = {
-  ingredientId: Scalars['ID']['input'];
-  quantity: Scalars['Float']['input'];
+  ingredientId: Scalars["ID"]["input"];
+  quantity: Scalars["Float"]["input"];
   unit: Unit;
 };
 
 export type RecipeIngredientModel = {
-  __typename?: 'RecipeIngredientModel';
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
+  __typename?: "RecipeIngredientModel";
+  createdAt: Scalars["DateTime"]["output"];
+  id: Scalars["ID"]["output"];
   ingredient: IngredientModel;
-  quantity: Scalars['Float']['output'];
+  quantity: Scalars["Float"]["output"];
   unit: Unit;
-  updatedAt: Scalars['DateTime']['output'];
+  updatedAt: Scalars["DateTime"]["output"];
 };
 
 export type RecipeInputCreateAndUpdate = {
-  calories: Scalars['Int']['input'];
-  cookingTime: Scalars['Int']['input'];
-  description: Scalars['String']['input'];
+  calories: Scalars["Int"]["input"];
+  cookingTime: Scalars["Int"]["input"];
+  description: Scalars["String"]["input"];
   difficulty: Difficulty;
   ingredients?: InputMaybe<Array<RecipeIngredientInput>>;
   nutritionFact?: InputMaybe<NutritionFactInputCreateAndUpdate>;
   recipeSteps?: InputMaybe<Array<RecipeStepInput>>;
-  slug: Scalars['String']['input'];
+  slug: Scalars["String"]["input"];
   tags?: InputMaybe<Array<RecipeTagInput>>;
-  title: Scalars['String']['input'];
+  title: Scalars["String"]["input"];
 };
 
 export type RecipeModel = {
-  __typename?: 'RecipeModel';
+  __typename?: "RecipeModel";
   author: UserModel;
-  authorId: Scalars['String']['output'];
-  calories: Scalars['Int']['output'];
-  cookingTime: Scalars['Int']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  description: Scalars['String']['output'];
+  authorId: Scalars["String"]["output"];
+  calories: Scalars["Int"]["output"];
+  cookingTime: Scalars["Int"]["output"];
+  createdAt: Scalars["DateTime"]["output"];
+  description: Scalars["String"]["output"];
   difficulty: Difficulty;
-  id: Scalars['ID']['output'];
-  likes?: Maybe<Scalars['Int']['output']>;
+  id: Scalars["ID"]["output"];
+  likes?: Maybe<Scalars["Int"]["output"]>;
   nutritionFact?: Maybe<NutritionFact>;
   recipeIngredients?: Maybe<Array<RecipeIngredientModel>>;
   recipeSteps?: Maybe<Array<RecipeStepModel>>;
-  slug: Scalars['String']['output'];
+  slug: Scalars["String"]["output"];
   tags?: Maybe<Array<RecipeTagModel>>;
-  title: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
+  title: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
 };
 
 export type RecipeStepInput = {
-  description: Scalars['String']['input'];
-  order: Scalars['Int']['input'];
-  title: Scalars['String']['input'];
+  description: Scalars["String"]["input"];
+  order: Scalars["Int"]["input"];
+  title: Scalars["String"]["input"];
 };
 
 export type RecipeStepModel = {
-  __typename?: 'RecipeStepModel';
-  createdAt: Scalars['DateTime']['output'];
-  description: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  order: Scalars['Int']['output'];
+  __typename?: "RecipeStepModel";
+  createdAt: Scalars["DateTime"]["output"];
+  description: Scalars["String"]["output"];
+  id: Scalars["ID"]["output"];
+  order: Scalars["Int"]["output"];
   recipe?: Maybe<RecipeModel>;
-  recipeId: Scalars['String']['output'];
-  title: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
+  recipeId: Scalars["String"]["output"];
+  title: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
 };
 
 export type RecipeTagInput = {
-  name: Scalars['String']['input'];
+  name: Scalars["String"]["input"];
 };
 
 export type RecipeTagModel = {
-  __typename?: 'RecipeTagModel';
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
+  __typename?: "RecipeTagModel";
+  createdAt: Scalars["DateTime"]["output"];
+  id: Scalars["ID"]["output"];
+  name: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
 };
 
 export type RequestPasswordResetTokenInput = {
-  email: Scalars['String']['input'];
+  email: Scalars["String"]["input"];
 };
 
 export type ResetPasswordInput = {
-  newPassword: Scalars['String']['input'];
-  token: Scalars['String']['input'];
+  newPassword: Scalars["String"]["input"];
+  token: Scalars["String"]["input"];
 };
 
 export enum Role {
-  Admin = 'ADMIN',
-  User = 'USER'
+  Admin = "ADMIN",
+  User = "USER",
 }
 
 export type ToggleLikeModel = {
-  __typename?: 'ToggleLikeModel';
-  liked: Scalars['Boolean']['output'];
+  __typename?: "ToggleLikeModel";
+  liked: Scalars["Boolean"]["output"];
 };
 
 export enum Unit {
-  Cloves = 'CLOVES',
-  Grams = 'GRAMS',
-  Mililiters = 'MILILITERS',
-  Pieces = 'PIECES',
-  Tablespoons = 'TABLESPOONS',
-  Teaspoons = 'TEASPOONS'
+  Cloves = "CLOVES",
+  Grams = "GRAMS",
+  Mililiters = "MILILITERS",
+  Pieces = "PIECES",
+  Tablespoons = "TABLESPOONS",
+  Teaspoons = "TEASPOONS",
 }
 
 export type UserInputUpdate = {
-  email?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars["String"]["input"]>;
   measurements?: InputMaybe<BodyMeasurementInputUpdate>;
-  password?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars["String"]["input"]>;
   profile?: InputMaybe<ProfileInputUpdate>;
 };
 
 export type UserModel = {
-  __typename?: 'UserModel';
-  createdAt: Scalars['DateTime']['output'];
-  email: Scalars['String']['output'];
-  id: Scalars['String']['output'];
-  isEmailVerified?: Maybe<Scalars['Boolean']['output']>;
+  __typename?: "UserModel";
+  createdAt: Scalars["DateTime"]["output"];
+  email: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  isEmailVerified?: Maybe<Scalars["Boolean"]["output"]>;
   measurements?: Maybe<BodyMeasurementModel>;
   profile?: Maybe<ProfileModel>;
   role: Role;
-  updatedAt: Scalars['DateTime']['output'];
+  updatedAt: Scalars["DateTime"]["output"];
 };
 
-export type NewTokenQueryVariables = Exact<{ [key: string]: never; }>;
+export type NewTokenQueryVariables = Exact<{ [key: string]: never }>;
 
-
-export type NewTokenQuery = { __typename?: 'Query', newTokens: { __typename?: 'AuthResponse', user: { __typename?: 'UserModel', id: string } } };
+export type NewTokenQuery = {
+  __typename?: "Query";
+  newTokens: {
+    __typename?: "AuthResponse";
+    user: { __typename?: "UserModel"; id: string };
+  };
+};
 
 export type LoginMutationVariables = Exact<{
   data: AuthInput;
 }>;
 
+export type LoginMutation = {
+  __typename?: "Mutation";
+  login: {
+    __typename?: "AuthResponse";
+    user: { __typename?: "UserModel"; email: string; id: string; role: Role };
+  };
+};
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthResponse', user: { __typename?: 'UserModel', email: string, id: string, role: Role } } };
+export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
 
-export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+export type LogoutMutation = { __typename?: "Mutation"; logout: boolean };
 
+export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
-export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
-
-export type MeQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type MeQuery = { __typename?: 'Query', me: { __typename?: 'UserModel', email: string, id: string, role: Role, isEmailVerified?: boolean | null } };
+export type MeQuery = {
+  __typename?: "Query";
+  me: {
+    __typename?: "UserModel";
+    email: string;
+    id: string;
+    role: Role;
+    isEmailVerified?: boolean | null;
+  };
+};
 
 export type RegisterMutationVariables = Exact<{
   data: AuthInput;
 }>;
 
-
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthResponse', user: { __typename?: 'UserModel', email: string, id: string, role: Role } } };
+export type RegisterMutation = {
+  __typename?: "Mutation";
+  register: {
+    __typename?: "AuthResponse";
+    user: { __typename?: "UserModel"; email: string; id: string; role: Role };
+  };
+};
 
 export type RequestPasswordResetMutationVariables = Exact<{
   data: RequestPasswordResetTokenInput;
 }>;
 
-
-export type RequestPasswordResetMutation = { __typename?: 'Mutation', requestPasswordReset: boolean };
+export type RequestPasswordResetMutation = {
+  __typename?: "Mutation";
+  requestPasswordReset: boolean;
+};
 
 export type ResetPasswordMutationVariables = Exact<{
   data: ResetPasswordInput;
 }>;
 
-
-export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: boolean };
+export type ResetPasswordMutation = {
+  __typename?: "Mutation";
+  resetPassword: boolean;
+};
 
 export type VerifyEmailMutationVariables = Exact<{
-  token: Scalars['String']['input'];
+  token: Scalars["String"]["input"];
 }>;
 
+export type VerifyEmailMutation = {
+  __typename?: "Mutation";
+  verifyEmail: boolean;
+};
 
-export type VerifyEmailMutation = { __typename?: 'Mutation', verifyEmail: boolean };
+export type GetProfileQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetProfileQuery = { __typename?: 'Query', me: { __typename?: 'UserModel', id: string, email: string, profile?: { __typename?: 'ProfileModel', id: string, age?: number | null, bio?: string | null, fullName: string, gender?: Gender | null, avatarUrl?: string | null, sites: Array<string> } | null, measurements?: { __typename?: 'BodyMeasurementModel', activityLevel?: ActivityLevel | null, waistCm?: number | null, weightKg?: number | null, armCm?: number | null, chestCm?: number | null, nutritionGoal?: NutritionGoal | null, thighCm?: number | null, goalWeightKg?: number | null, heightCm?: number | null } | null } };
+export type GetProfileQuery = {
+  __typename?: "Query";
+  me: {
+    __typename?: "UserModel";
+    id: string;
+    email: string;
+    profile?: {
+      __typename?: "ProfileModel";
+      id: string;
+      age?: number | null;
+      bio?: string | null;
+      fullName: string;
+      gender?: Gender | null;
+      avatarUrl?: string | null;
+      sites: Array<string>;
+    } | null;
+    measurements?: {
+      __typename?: "BodyMeasurementModel";
+      activityLevel?: ActivityLevel | null;
+      waistCm?: number | null;
+      weightKg?: number | null;
+      armCm?: number | null;
+      chestCm?: number | null;
+      nutritionGoal?: NutritionGoal | null;
+      thighCm?: number | null;
+      goalWeightKg?: number | null;
+      heightCm?: number | null;
+    } | null;
+  };
+};
 
 export type UpdateProfileMutationVariables = Exact<{
   data: UserInputUpdate;
 }>;
 
+export type UpdateProfileMutation = {
+  __typename?: "Mutation";
+  updateProfile: {
+    __typename?: "UserModel";
+    id: string;
+    email: string;
+    profile?: {
+      __typename?: "ProfileModel";
+      id: string;
+      age?: number | null;
+      bio?: string | null;
+      fullName: string;
+      gender?: Gender | null;
+      avatarUrl?: string | null;
+      sites: Array<string>;
+    } | null;
+    measurements?: {
+      __typename?: "BodyMeasurementModel";
+      activityLevel?: ActivityLevel | null;
+      waistCm?: number | null;
+      weightKg?: number | null;
+      armCm?: number | null;
+      chestCm?: number | null;
+      goalWeightKg?: number | null;
+      heightCm?: number | null;
+      nutritionGoal?: NutritionGoal | null;
+      thighCm?: number | null;
+    } | null;
+  };
+};
 
-export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'UserModel', id: string, email: string, profile?: { __typename?: 'ProfileModel', id: string, age?: number | null, bio?: string | null, fullName: string, gender?: Gender | null, avatarUrl?: string | null, sites: Array<string> } | null, measurements?: { __typename?: 'BodyMeasurementModel', activityLevel?: ActivityLevel | null, waistCm?: number | null, weightKg?: number | null, armCm?: number | null, chestCm?: number | null, goalWeightKg?: number | null, heightCm?: number | null, nutritionGoal?: NutritionGoal | null, thighCm?: number | null } | null } };
-
-
-export const NewTokenDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"NewToken"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"newTokens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<NewTokenQuery, NewTokenQueryVariables>;
-export const LoginDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Login"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AuthInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"login"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"role"}}]}}]}}]}}]} as unknown as DocumentNode<LoginMutation, LoginMutationVariables>;
-export const LogoutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Logout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"logout"}}]}}]} as unknown as DocumentNode<LogoutMutation, LogoutMutationVariables>;
-export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"isEmailVerified"}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
-export const RegisterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Register"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AuthInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"register"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"role"}}]}}]}}]}}]} as unknown as DocumentNode<RegisterMutation, RegisterMutationVariables>;
-export const RequestPasswordResetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RequestPasswordReset"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RequestPasswordResetTokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"requestPasswordReset"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}]}]}}]} as unknown as DocumentNode<RequestPasswordResetMutation, RequestPasswordResetMutationVariables>;
-export const ResetPasswordDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ResetPassword"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ResetPasswordInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resetPassword"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}]}]}}]} as unknown as DocumentNode<ResetPasswordMutation, ResetPasswordMutationVariables>;
-export const VerifyEmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"VerifyEmail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"token"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"verifyEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"token"},"value":{"kind":"Variable","name":{"kind":"Name","value":"token"}}}]}]}}]} as unknown as DocumentNode<VerifyEmailMutation, VerifyEmailMutationVariables>;
-export const GetProfileDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProfile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"profile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"age"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"gender"}},{"kind":"Field","name":{"kind":"Name","value":"avatarUrl"}},{"kind":"Field","name":{"kind":"Name","value":"sites"}}]}},{"kind":"Field","name":{"kind":"Name","value":"measurements"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"activityLevel"}},{"kind":"Field","name":{"kind":"Name","value":"waistCm"}},{"kind":"Field","name":{"kind":"Name","value":"weightKg"}},{"kind":"Field","name":{"kind":"Name","value":"armCm"}},{"kind":"Field","name":{"kind":"Name","value":"chestCm"}},{"kind":"Field","name":{"kind":"Name","value":"nutritionGoal"}},{"kind":"Field","name":{"kind":"Name","value":"thighCm"}},{"kind":"Field","name":{"kind":"Name","value":"goalWeightKg"}},{"kind":"Field","name":{"kind":"Name","value":"heightCm"}}]}}]}}]}}]} as unknown as DocumentNode<GetProfileQuery, GetProfileQueryVariables>;
-export const UpdateProfileDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateProfile"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserInputUpdate"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateProfile"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"profile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"age"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"gender"}},{"kind":"Field","name":{"kind":"Name","value":"avatarUrl"}},{"kind":"Field","name":{"kind":"Name","value":"sites"}}]}},{"kind":"Field","name":{"kind":"Name","value":"measurements"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"activityLevel"}},{"kind":"Field","name":{"kind":"Name","value":"waistCm"}},{"kind":"Field","name":{"kind":"Name","value":"weightKg"}},{"kind":"Field","name":{"kind":"Name","value":"armCm"}},{"kind":"Field","name":{"kind":"Name","value":"chestCm"}},{"kind":"Field","name":{"kind":"Name","value":"goalWeightKg"}},{"kind":"Field","name":{"kind":"Name","value":"heightCm"}},{"kind":"Field","name":{"kind":"Name","value":"nutritionGoal"}},{"kind":"Field","name":{"kind":"Name","value":"thighCm"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateProfileMutation, UpdateProfileMutationVariables>;
+export const NewTokenDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "NewToken" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "newTokens" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<NewTokenQuery, NewTokenQueryVariables>;
+export const LoginDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Login" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "data" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "AuthInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "login" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "data" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "data" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "email" } },
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "role" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<LoginMutation, LoginMutationVariables>;
+export const LogoutDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Logout" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "logout" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<LogoutMutation, LogoutMutationVariables>;
+export const MeDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Me" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "me" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "email" } },
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "role" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "isEmailVerified" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
+export const RegisterDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "Register" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "data" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "AuthInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "register" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "data" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "data" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "email" } },
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "role" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<RegisterMutation, RegisterMutationVariables>;
+export const RequestPasswordResetDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "RequestPasswordReset" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "data" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "RequestPasswordResetTokenInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "requestPasswordReset" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "data" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "data" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  RequestPasswordResetMutation,
+  RequestPasswordResetMutationVariables
+>;
+export const ResetPasswordDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "ResetPassword" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "data" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "ResetPasswordInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "resetPassword" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "data" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "data" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables
+>;
+export const VerifyEmailDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "VerifyEmail" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "token" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "verifyEmail" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "token" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "token" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<VerifyEmailMutation, VerifyEmailMutationVariables>;
+export const GetProfileDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetProfile" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "me" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "email" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "profile" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "age" } },
+                      { kind: "Field", name: { kind: "Name", value: "bio" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "fullName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "gender" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "avatarUrl" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "sites" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "measurements" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "activityLevel" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "waistCm" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "weightKg" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "armCm" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "chestCm" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "nutritionGoal" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "thighCm" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "goalWeightKg" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "heightCm" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetProfileQuery, GetProfileQueryVariables>;
+export const UpdateProfileDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateProfile" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "data" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "UserInputUpdate" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "updateProfile" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "data" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "data" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "email" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "profile" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "age" } },
+                      { kind: "Field", name: { kind: "Name", value: "bio" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "fullName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "gender" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "avatarUrl" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "sites" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "measurements" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "activityLevel" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "waistCm" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "weightKg" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "armCm" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "chestCm" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "goalWeightKg" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "heightCm" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "nutritionGoal" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "thighCm" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateProfileMutation,
+  UpdateProfileMutationVariables
+>;

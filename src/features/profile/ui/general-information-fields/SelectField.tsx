@@ -14,8 +14,11 @@ import {
 
 import { Gender } from "@/shared/api/__generated__/graphql";
 
-import { ProfileData } from "../../profile.types";
+import { ProfileFormInput } from "../../profile-schema.zod";
+import {
+  useFormContext
 
+} from "react-hook-form";
 interface SelectFieldProps {
   label: string;
   placeholder: string;
@@ -25,9 +28,9 @@ interface SelectFieldProps {
   }>;
   isEditing: boolean;
   formName: "gender" | "age";
-  register: UseFormRegister<ProfileData>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: Control<ProfileData, any, ProfileData>;
+  // register: UseFormRegister<ProfileData>;
+  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // control: Control<ProfileData, any, ProfileData>;
 }
 
 const SelectField: FunctionComponent<SelectFieldProps> = ({
@@ -36,8 +39,9 @@ const SelectField: FunctionComponent<SelectFieldProps> = ({
   type,
   isEditing,
   formName,
-  control,
+  // control,
 }) => {
+  const { control } = useFormContext<ProfileFormInput>()
   return (
     <div className="flex-1">
       {" "}

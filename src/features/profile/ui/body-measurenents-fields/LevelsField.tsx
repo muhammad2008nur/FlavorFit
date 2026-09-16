@@ -1,6 +1,6 @@
 import { LucideIcon } from "lucide-react";
 import { FunctionComponent } from "react";
-import { Control, Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 import {
   Select,
@@ -10,8 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select";
+import { ProfileFormInput } from "../../profile-schema.zod";
 
-import { ProfileData } from "../../profile.types";
 
 interface Category {
   value: string;
@@ -24,8 +24,8 @@ interface LevelsFieldProps {
   placeholder: string;
   type: Array<Category>;
   formName: "nutritionGoal" | "activityLevel";
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: Control<ProfileData, any, ProfileData>;
+
+  // control: Control<ProfileData, any, ProfileData>;
 }
 
 const LevelsField: FunctionComponent<LevelsFieldProps> = ({
@@ -34,8 +34,8 @@ const LevelsField: FunctionComponent<LevelsFieldProps> = ({
   placeholder,
   type,
   formName,
-  control,
 }) => {
+  const { control } = useFormContext<ProfileFormInput>()
   return (
     <div className="pt-5">
       {label}

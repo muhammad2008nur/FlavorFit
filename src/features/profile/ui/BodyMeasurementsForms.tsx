@@ -3,34 +3,19 @@ import Image from "next/image";
 import { FunctionComponent } from "react";
 import { Control, UseFormRegister } from "react-hook-form";
 
-import { ProfileData } from "../profile.types";
+// import { ProfileData } from "../profile.types";
 // import { type } from "../../../../.next/dev/types/routes";
 import LevelsField from "./body-measurenents-fields/LevelsField";
 import MeasurementField from "./body-measurenents-fields/MeasurementField";
+import { ProfileFormInput, ProfileData } from "../profile-schema.zod";
 
 interface BodyMeasurementsProps {
-  formName: {
-    growth: "growth";
-    currentWeight: "currentWeight";
-    desiredWeight: "desiredWeight";
-    waist: "waist";
-    chest: "chest";
-    thigh: "thigh";
-    arm: "arm";
-    nutritionGoal: "nutritionGoal";
-    activityLevel: "activityLevel";
-  };
-  register: UseFormRegister<ProfileData>;
   isEditing: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: Control<ProfileData, any, ProfileData>;
+
 }
 
 const BodyMeasurements: FunctionComponent<BodyMeasurementsProps> = ({
-  register,
-  formName,
   isEditing,
-  control,
 }) => {
   const nutritionGoalOptions = [
     { value: "WEIGHT_LOSS", label: "Weight Loss" },
@@ -57,8 +42,8 @@ const BodyMeasurements: FunctionComponent<BodyMeasurementsProps> = ({
         <span>Body measurements</span>
         <div className="p-1 gap-3.5">
           <MeasurementField
-            register={register}
-            formName={formName.growth}
+            // register={register}
+            formName="growth"
             isEditing={isEditing}
             label="Growth"
             Icon={PersonStanding}
@@ -68,8 +53,8 @@ const BodyMeasurements: FunctionComponent<BodyMeasurementsProps> = ({
         <div className="flex p-1 gap-3.5">
           <div className="flex-1">
             <MeasurementField
-              register={register}
-              formName={formName.currentWeight}
+              // register={register}
+              formName="currentWeight"
               isEditing={isEditing}
               label="Current weight"
               Icon={Scale}
@@ -78,8 +63,8 @@ const BodyMeasurements: FunctionComponent<BodyMeasurementsProps> = ({
           </div>
           <div className="flex-1">
             <MeasurementField
-              register={register}
-              formName={formName.desiredWeight}
+              // register={register}
+              formName="desiredWeight"
               isEditing={isEditing}
               label="Desired weight"
               Icon={Scale}
@@ -90,8 +75,8 @@ const BodyMeasurements: FunctionComponent<BodyMeasurementsProps> = ({
         <div className="flex p-1 gap-3.5">
           <div className="flex-1">
             <MeasurementField
-              register={register}
-              formName={formName.waist}
+              // register={register}
+              formName="waist"
               isEditing={isEditing}
               label="Waist circumference"
               Icon={Ruler}
@@ -100,8 +85,8 @@ const BodyMeasurements: FunctionComponent<BodyMeasurementsProps> = ({
           </div>
           <div className="flex-1">
             <MeasurementField
-              register={register}
-              formName={formName.chest}
+              // register={register}
+              formName="chest"
               isEditing={isEditing}
               label="Chest weight"
               Icon={Ruler}
@@ -112,8 +97,8 @@ const BodyMeasurements: FunctionComponent<BodyMeasurementsProps> = ({
         <div className="flex p-1 gap-3.5">
           <div className="flex-1">
             <MeasurementField
-              register={register}
-              formName={formName.thigh}
+              // register={register}
+              formName="thigh"
               isEditing={isEditing}
               label="Thigh circumference"
               Icon={Ruler}
@@ -122,8 +107,8 @@ const BodyMeasurements: FunctionComponent<BodyMeasurementsProps> = ({
           </div>
           <div className="flex-1">
             <MeasurementField
-              register={register}
-              formName={formName.arm}
+              // register={register}
+              formName="arm"
               isEditing={isEditing}
               label="Arm circumference"
               Icon={Ruler}
@@ -132,16 +117,16 @@ const BodyMeasurements: FunctionComponent<BodyMeasurementsProps> = ({
           </div>
         </div>
         <LevelsField
-          formName={formName.nutritionGoal}
-          control={control}
+          formName="nutritionGoal"
+          // control={control}
           Icon={Goal}
           placeholder="Weight Loss"
           label="Set your nutritional goals"
           type={nutritionGoalOptions}
         />
         <LevelsField
-          formName={formName.activityLevel}
-          control={control}
+          formName="activityLevel"
+          // control={control}
           Icon={Dumbbell}
           placeholder="Lightly active"
           label="Define your activity level"

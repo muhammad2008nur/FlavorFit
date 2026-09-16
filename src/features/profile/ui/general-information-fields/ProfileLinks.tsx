@@ -5,18 +5,17 @@ import { Control, useController } from "react-hook-form";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 
-import { ProfileData } from "../../profile.types";
-
+import { ProfileFormInput } from "../../profile-schema.zod";
+import { useFormContext } from "react-hook-form";
 interface ProfileLinksProps {
   isEditing: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: Control<ProfileData, any, ProfileData>;
+
 }
 
 const ProfileLinks: FunctionComponent<ProfileLinksProps> = ({
   isEditing,
-  control,
 }) => {
+  const { control } = useFormContext<ProfileFormInput>()
   const { field } = useController({ control, name: "sites" });
   const urls = field.value ?? [];
 

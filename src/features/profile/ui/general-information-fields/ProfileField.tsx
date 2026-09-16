@@ -1,17 +1,18 @@
 import { LucideIcon } from "lucide-react";
 import { FunctionComponent } from "react";
-import { FieldValues, UseFormRegister } from "react-hook-form";
+// import { UseFormRegister } from "react-hook-form";
 
 import { Input } from "@/shared/components/ui/input";
 
-import { ProfileData } from "../../profile.types";
-
+// import { ProfileData } from "../../profile.types";
+import { useFormContext } from "react-hook-form";
+import { ProfileFormInput } from "../../profile-schema.zod";
 export interface ProfileFieldProps {
   Icon: LucideIcon;
   label: string;
   placeholder: string;
   type: string;
-  register: UseFormRegister<ProfileData>;
+  // register: UseFormRegister<ProfileData>;
   isEditing: boolean;
   formName: "email" | "fullName";
 }
@@ -21,10 +22,11 @@ const ProfileField: FunctionComponent<ProfileFieldProps> = ({
   label,
   placeholder,
   type,
-  register,
+  // register,
   isEditing,
   formName,
 }) => {
+  const { register } = useFormContext<ProfileFormInput>()
   return (
     <label className="text-field-foreground/60 text-sm font-normal">
       {label}
@@ -35,7 +37,7 @@ const ProfileField: FunctionComponent<ProfileFieldProps> = ({
           readOnly={!isEditing}
           type={type}
           placeholder={placeholder}
-          className="w-full focus-visible:ring-0 "
+          className="w-full focus-visible:ring-0"
         />
       </div>
     </label>
