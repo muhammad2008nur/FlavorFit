@@ -1,23 +1,24 @@
 import { FunctionComponent } from "react";
 
 import { Textarea } from "@/shared/components/ui/textarea";
+import FieldError from "@/shared/components/custom-ui/field-error/FieldError";
 
 
 interface TextAreaProps {
   label: string;
-  // register: UseFormRegister<ProfileData>;
   formName: "bio";
   isEditing: boolean;
 }
 import { useFormContext } from "react-hook-form";
-import { ProfileFormInput } from "../../profile-schema.zod";
+import { ProfileFormInput } from "@/features/profile/profile-schema.zod";
 const TextArea: FunctionComponent<TextAreaProps> = ({
   label,
-  // register,
   formName,
   isEditing,
 }) => {
-  const { register } = useFormContext<ProfileFormInput>()
+  const { register, formState: { errors } } = useFormContext<ProfileFormInput>()
+  const error = errors[formName];
+
   return (
     <div className="py-2">
       <label className="text-sm text-field-foreground/60 font-light">
@@ -29,6 +30,7 @@ const TextArea: FunctionComponent<TextAreaProps> = ({
             className="text-field-foreground font-medium"
           />
         </div>
+        <FieldError message={error?.message} />
       </label>
     </div>
   );

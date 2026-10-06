@@ -1,7 +1,6 @@
 import { Mars, UserCog, Venus } from "lucide-react";
 import { FunctionComponent } from "react";
 import { Controller } from "react-hook-form";
-import { Control, UseFormRegister } from "react-hook-form";
 
 import {
   Select,
@@ -11,10 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select";
+import FieldError from "@/shared/components/custom-ui/field-error/FieldError";
 
 import { Gender } from "@/shared/api/__generated__/graphql";
 
-import { ProfileFormInput } from "../../profile-schema.zod";
+import { ProfileFormInput } from "@/features/profile/profile-schema.zod";
 import {
   useFormContext
 
@@ -22,26 +22,24 @@ import {
 interface SelectFieldProps {
   label: string;
   placeholder: string;
-  type: Array<{
+  ageArray: Array<{
     value: string;
     label: string;
   }>;
   isEditing: boolean;
   formName: "gender" | "age";
-  // register: UseFormRegister<ProfileData>;
-  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // control: Control<ProfileData, any, ProfileData>;
 }
 
 const SelectField: FunctionComponent<SelectFieldProps> = ({
   label,
   placeholder,
-  type,
+  ageArray,
   isEditing,
   formName,
-  // control,
 }) => {
-  const { control } = useFormContext<ProfileFormInput>()
+  const { control, formState: { errors } } = useFormContext<ProfileFormInput>()
+  const error = errors[formName];
+
   return (
     <div className="flex-1">
       {" "}
@@ -53,8 +51,7 @@ const SelectField: FunctionComponent<SelectFieldProps> = ({
             name={formName}
             control={control}
             render={({ field }) => {
-              const selected =
-                field.value == null ? undefined : String(field.value);
+              const selected = field.value == null ? "" : String(field.value);
 
               return (
                 <>
@@ -72,7 +69,7 @@ const SelectField: FunctionComponent<SelectFieldProps> = ({
                     ))}
                   <Select
                     value={selected}
-                    onValueChange={field.onChange}
+                    onValueChange={(value) => value && field.onChange(value)}
                     disabled={!isEditing}
                   >
                     <SelectTrigger className="w-full border-0 font-medium data-placeholder:font-light shadow-none px-0 h-9 bg-transparent  text-sm text-field-foreground">
@@ -80,7 +77,7 @@ const SelectField: FunctionComponent<SelectFieldProps> = ({
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        {type.map((item) => (
+                        {ageArray.map((item) => (
                           <SelectItem key={item.value} value={item.value}>
                             {item.label}
                           </SelectItem>
@@ -93,6 +90,7 @@ const SelectField: FunctionComponent<SelectFieldProps> = ({
             }}
           />
         </div>
+        <FieldError message={error?.message} />
       </label>
     </div>
   );

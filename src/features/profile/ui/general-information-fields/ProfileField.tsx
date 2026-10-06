@@ -1,18 +1,15 @@
 import { LucideIcon } from "lucide-react";
 import { FunctionComponent } from "react";
-// import { UseFormRegister } from "react-hook-form";
 
 import { Input } from "@/shared/components/ui/input";
+import FieldError from "@/shared/components/custom-ui/field-error/FieldError";
 
-// import { ProfileData } from "../../profile.types";
 import { useFormContext } from "react-hook-form";
-import { ProfileFormInput } from "../../profile-schema.zod";
+import { ProfileFormInput } from "@/features/profile/profile-schema.zod";
 export interface ProfileFieldProps {
   Icon: LucideIcon;
   label: string;
   placeholder: string;
-  type: string;
-  // register: UseFormRegister<ProfileData>;
   isEditing: boolean;
   formName: "email" | "fullName";
 }
@@ -21,12 +18,12 @@ const ProfileField: FunctionComponent<ProfileFieldProps> = ({
   Icon,
   label,
   placeholder,
-  type,
-  // register,
   isEditing,
   formName,
 }) => {
-  const { register } = useFormContext<ProfileFormInput>()
+  const { register, formState: { errors } } = useFormContext<ProfileFormInput>()
+  const error = errors[formName];
+
   return (
     <label className="text-field-foreground/60 text-sm font-normal">
       {label}
@@ -35,11 +32,12 @@ const ProfileField: FunctionComponent<ProfileFieldProps> = ({
         <Input
           {...register(formName, {})}
           readOnly={!isEditing}
-          type={type}
           placeholder={placeholder}
           className="w-full focus-visible:ring-0"
+          type="text"
         />
       </div>
+      <FieldError message={error?.message} />
     </label>
   );
 };

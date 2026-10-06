@@ -1,4 +1,3 @@
-// src/features/profile/profile.schema.ts
 import { z } from "zod";
 
 import {
@@ -7,97 +6,96 @@ import {
   NutritionGoal,
 } from "@/shared/api/__generated__/graphql";
 
+const MAX_WEIGHT_GAP = 100;
+
 const emptyToNull = (v: unknown): unknown =>
-  v === "" || v === undefined ? null : v;
+  v === undefined || v === "" ? null : v;
 
 const toNumberOrNull = (v: unknown): unknown => {
-  if (v === "" || v === null || v === undefined) return null;
-  const n = Number(v);
-  return Number.isNaN(n) ? undefined : n;
+  if (v === null || v === undefined) return null;
+  if (typeof v !== "string") return v;
+
+  const trimmed = v.trim();
+  if (trimmed === "") return null;
+
+  const parsed = Number(trimmed);
+  return Number.isNaN(parsed) ? undefined : parsed;
 };
 
+const noLeadingZeros = z.unknown().superRefine((v, ctx) => {
+  if (typeof v === "string" && /^0\d/.test(v.trim())) {
+    ctx.addIssue({ code: "custom", message: "Remove the leading zero" });
+  }
+});
+
 const measurement = (min: number, max: number) =>
-  z.preprocess(
-    toNumberOrNull,
-    z
-      .number("Введите число")
-      .int("Только целое число")
-      .min(min, `Не меньше ${min}`)
-      .max(max, `Не больше ${max}`)
-      .nullable(),
+  noLeadingZeros.pipe(
+    z.preprocess(
+      toNumberOrNull,
+      z
+        .number("Enter a number")
+        .int("Whole numbers only")
+        .min(min, `Must be at least ${min}`)
+        .max(max, `Must be at most ${max}`)
+        .nullable(),
+    ),
   );
 
-/* ────────────────────────────────────────────────────────────
-   Схема профиля
-   ──────────────────────────────────────────────────────────── */
+const nullableEnum = <T extends Record<string, string>>(values: T) =>
+  z.preprocess(emptyToNull, z.enum(values).nullable());
 
 export const profileSchema = z
   .object({
-    /* ─── Общая информация ─────────────────────────────── */
-
     fullName: z
       .string()
-      .min(2, "Имя слишком короткое")
-      .max(60, "Не больше 60 символов"),
+      .min(2, "Name is too short")
+      .max(60, "No more than 60 characters"),
 
-    email: z.email("Некорректный email"),
+    email: z.email("Invalid email"),
 
-    age: z.preprocess(
-      toNumberOrNull,
-      z
-        .number()
-        .int()
-        .min(10, "Минимум 10 лет")
-        .max(100, "Максимум 100 лет")
-        .nullable(),
+    age: noLeadingZeros.pipe(
+      z.preprocess(
+        toNumberOrNull,
+        z
+          .number("Enter a number")
+          .int("Whole numbers only")
+          .min(10, "Must be at least 10")
+          .max(100, "Must be at most 100")
+          .nullable(),
+      ),
     ),
 
-    gender: z.preprocess(emptyToNull, z.enum(Gender).nullable()),
+    gender: nullableEnum(Gender),
 
-    bio: z.string().trim().max(300, "Не больше 300 символов").default(""),
+    bio: z.string().trim().max(300, "No more than 300 characters").default(""),
 
-    sites: z.preprocess(
-      (v) =>
-        Array.isArray(v)
-          ? v.filter((s) => typeof s === "string" && s.trim() !== "")
-          : [],
-      z
-        .array(z.string().url("Введите корректную ссылку"))
-        .max(5, "Не больше 5 ссылок"),
-    ),
+    sites: z
+      .array(z.url({ protocol: /^https?$/, error: "Enter a valid link" }))
+      .max(5, "No more than 5 links"),
 
-    /* ─── Измерения тела ───────────────────────────────── */
+    growth: measurement(50, 250),
+    currentWeight: measurement(20, 400),
+    desiredWeight: measurement(20, 400),
+    waist: measurement(30, 250),
+    chest: measurement(30, 250),
+    thigh: measurement(20, 150),
+    arm: measurement(10, 100),
 
-    growth: measurement(50, 250), // рост, см
-    currentWeight: measurement(20, 400), // текущий вес, кг
-    desiredWeight: measurement(20, 400), // желаемый вес, кг
-    waist: measurement(30, 250), // талия, см
-    chest: measurement(30, 250), // грудь, см
-    thigh: measurement(20, 150), // бедро, см
-    arm: measurement(10, 100), // рука, см
+    nutritionGoal: nullableEnum(NutritionGoal),
 
-    nutritionGoal: z.preprocess(emptyToNull, z.enum(NutritionGoal).nullable()),
-
-    activityLevel: z.preprocess(emptyToNull, z.enum(ActivityLevel).nullable()),
+    activityLevel: nullableEnum(ActivityLevel),
   })
-  /* ─── Проверки между полями ──────────────────────────── */
   .refine(
     (v) =>
       v.currentWeight === null ||
       v.desiredWeight === null ||
-      Math.abs(v.currentWeight - v.desiredWeight) <= 100,
+      Math.abs(v.currentWeight - v.desiredWeight) <= MAX_WEIGHT_GAP,
     {
-      message: "Слишком большая разница с текущим весом",
+      message: `No more than ${MAX_WEIGHT_GAP} kg away from your current weight`,
       path: ["desiredWeight"],
     },
   );
 
-/* ────────────────────────────────────────────────────────────
-   Типы, выведенные из схемы
-   ──────────────────────────────────────────────────────────── */
-
-/** Что лежит в форме ДО валидации — строки из инпутов. */
 export type ProfileFormInput = z.input<typeof profileSchema>;
 
-/** Что приходит в onSubmit ПОСЛЕ валидации — уже числа и enum'ы. */
 export type ProfileData = z.output<typeof profileSchema>;

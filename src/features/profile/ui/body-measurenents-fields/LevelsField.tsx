@@ -10,11 +10,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select";
-import { ProfileFormInput } from "../../profile-schema.zod";
+import {
+  ActivityLevel,
+  NutritionGoal,
+} from "@/shared/api/__generated__/graphql";
+import { ProfileFormInput } from "@/features/profile/profile-schema.zod";
+import FieldError from "@/shared/components/custom-ui/field-error/FieldError";
 
 
 interface Category {
-  value: string;
+  value: NutritionGoal | ActivityLevel;
   label: string;
 }
 
@@ -24,8 +29,8 @@ interface LevelsFieldProps {
   placeholder: string;
   type: Array<Category>;
   formName: "nutritionGoal" | "activityLevel";
+  isEditing: boolean
 
-  // control: Control<ProfileData, any, ProfileData>;
 }
 
 const LevelsField: FunctionComponent<LevelsFieldProps> = ({
@@ -34,8 +39,11 @@ const LevelsField: FunctionComponent<LevelsFieldProps> = ({
   placeholder,
   type,
   formName,
+  isEditing
 }) => {
-  const { control } = useFormContext<ProfileFormInput>()
+  const { control, formState: { errors } } = useFormContext<ProfileFormInput>()
+  const error = errors[formName];
+
   return (
     <div className="pt-5">
       {label}
@@ -43,14 +51,17 @@ const LevelsField: FunctionComponent<LevelsFieldProps> = ({
         name={formName}
         control={control}
         render={({ field }) => {
-          const selected =
-            field.value == null ? undefined : String(field.value);
+          const selected = field.value == null ? "" : String(field.value);
 
           return (
             <div className="flex items-center mt-1.5 gap-3 rounded-full px-3 bg-field font-normal text-sm placeholder:text-sm placeholder:font-light">
               <Icon />
 
-              <Select value={selected} onValueChange={field.onChange}>
+              <Select
+                disabled={!isEditing}
+                value={selected}
+                onValueChange={(value) => value && field.onChange(value)}
+              >
                 <SelectTrigger className="w-full border-0 shadow-none px-0 h-9 font-medium bg-transparent  text-sm text-field-foreground">
                   <SelectValue placeholder={placeholder} />
                 </SelectTrigger>
@@ -70,6 +81,7 @@ const LevelsField: FunctionComponent<LevelsFieldProps> = ({
           );
         }}
       />
+      <FieldError message={error?.message} />
     </div>
   );
 };

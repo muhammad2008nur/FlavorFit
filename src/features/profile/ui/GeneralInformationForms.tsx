@@ -3,7 +3,6 @@
 import { Mail, UserRound } from "lucide-react";
 
 
-// import { ProfileData } from "../profile.types";
 import AvatarUpload from "./general-information-fields/AvatarUpload";
 import ProfileField from "./general-information-fields/ProfileField";
 import ProfileLinks from "./general-information-fields/ProfileLinks";
@@ -11,8 +10,24 @@ import SelectField from "./general-information-fields/SelectField";
 import TextArea from "./general-information-fields/Textarea";
 import { Gender } from "@/shared/api/__generated__/graphql";
 
+const AgeArray = Array.from({ length: 91 }, (_, i) => ({
+  value: String(i + 10),
+  label: `${i + 10} y.o.`,
+}));
+
+const GenderArray = [
+  {
+    value: Gender.Male,
+    label: "Male",
+  },
+  {
+    value: Gender.Female,
+    label: "Female",
+  },
+];
+
 interface GeneralInformationProps {
-  avatarUrl?: string | null;
+  avatarUrl: string | null;
   onAvatarUpload: () => void;
   isEditing: boolean;
 }
@@ -22,21 +37,6 @@ const GeneralInformation = ({
   onAvatarUpload,
   isEditing,
 }: GeneralInformationProps) => {
-  const AgeArray = Array.from({ length: 91 }, (_, i) => ({
-    value: String(i + 10),
-    label: `${i + 10} y.o.`,
-  }));
-  const GenderArray = [
-    {
-      value: Gender.Male,
-      label: "Male",
-    },
-    {
-      value: Gender.Female,
-      label: "Female",
-    },
-  ];
-
   return (
     <div className="bg-secondary ">
       <div>
@@ -47,11 +47,9 @@ const GeneralInformation = ({
             <ProfileField
               formName="fullName"
               isEditing={isEditing}
-              // register={register}
               Icon={UserRound}
               label={"Full name"}
               placeholder={"Ivanov Ivan"}
-              type={"text"}
             />{" "}
           </div>
         </div>
@@ -59,28 +57,22 @@ const GeneralInformation = ({
           <ProfileField
             formName="email"
             isEditing={isEditing}
-            // register={register}
             Icon={Mail}
             label={"Email"}
             placeholder={"example@gmail.com"}
-            type={"text"}
           />{" "}
         </div>
         <div className="flex gap-3 pt-2.5">
           <SelectField
-            // control={control}
-            // register={register}
             isEditing={isEditing}
             formName="gender"
             label={"Gender"}
             placeholder={"Choose your gender"}
-            type={GenderArray}
+            ageArray={GenderArray}
           />
           <SelectField
-            // control={control}
-            // register={register}
             formName="age"
-            type={AgeArray}
+            ageArray={AgeArray}
             label={"Age"}
             placeholder={"Choose your age"}
             isEditing={isEditing}
@@ -90,7 +82,6 @@ const GeneralInformation = ({
       <TextArea
         isEditing={isEditing}
         formName="bio"
-        // register={register}
         label="Bio"
       />
       <ProfileLinks isEditing={isEditing} />
