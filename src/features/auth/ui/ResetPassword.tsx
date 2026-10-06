@@ -11,7 +11,7 @@ import { ResetFormData } from "@/shared/types/reset-form.types";
 
 import { ResetPasswordDocument } from "@/shared/api/__generated__/graphql";
 
-import { useTurnstileCaptcha } from "../hooks/useTurnstileCaptcha";
+import { useTurnstileCaptcha } from "@/features/auth/hooks/useTurnstileCaptcha";
 
 import AuthCard from "./AuthCard";
 import AuthInputField from "./AuthInputField";

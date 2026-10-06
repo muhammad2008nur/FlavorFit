@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client/react";
 
-import { MeDocument } from "../api/__generated__/graphql";
+import { MeDocument } from "@/shared/api/__generated__/graphql";
 
 export function useAuth() {
   const { data, loading } = useQuery(MeDocument, {

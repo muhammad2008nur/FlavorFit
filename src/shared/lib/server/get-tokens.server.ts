@@ -12,7 +12,7 @@ import {
   NewTokenQuery,
 } from "@/shared/api/__generated__/graphql";
 
-import { getApolloClient } from "../apollo/apollo-client";
+import { getApolloClient } from "@/shared/lib/apollo/apollo-client";
 
 export async function getTokens(request: NextRequest) {
   const accessToken = request.cookies.get(ACCESS_TOKEN)?.value;

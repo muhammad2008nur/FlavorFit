@@ -9,7 +9,7 @@ import { PAGES } from "@/shared/config/page.config";
 
 import { VerifyEmailDocument } from "@/shared/api/__generated__/graphql";
 
-import { useTurnstileCaptcha } from "../hooks/useTurnstileCaptcha";
+import { useTurnstileCaptcha } from "@/features/auth/hooks/useTurnstileCaptcha";
 
 export function VerifyEmail() {
   const captcha = useTurnstileCaptcha();

@@ -3,7 +3,7 @@ import { ErrorLink } from "@apollo/client/link/error";
 
 import { NewTokenDocument } from "@/shared/api/__generated__/graphql";
 
-import { simpleApolloClient } from "../apollo-client";
+import { simpleApolloClient } from "@/shared/lib/apollo/apollo-client";
 
 export const errorLink = new ErrorLink(({ operation, error, forward }) => {
   if (CombinedGraphQLErrors.is(error)) {

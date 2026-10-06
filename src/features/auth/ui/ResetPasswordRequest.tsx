@@ -9,7 +9,7 @@ import { isEmailRegex } from "@/shared/utils/is-email.regex";
 
 import { RequestPasswordResetDocument } from "@/shared/api/__generated__/graphql";
 
-import { useTurnstileCaptcha } from "../hooks/useTurnstileCaptcha";
+import { useTurnstileCaptcha } from "@/features/auth/hooks/useTurnstileCaptcha";
 
 import AuthCard from "./AuthCard";
 import AuthInputField from "./AuthInputField";
