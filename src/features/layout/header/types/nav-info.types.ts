@@ -1,10 +1,10 @@
 import { LucideIcon } from "lucide-react";
 
 export interface NavInfoProps {
-  userInfo: UserInfo;
+  userInfo: UserInfoData;
   icons: LucideIcon[];
 }
-export interface UserInfo {
+export interface UserInfoData {
   name: string;
   isEmailVerified: boolean | null | undefined;
   username: string;

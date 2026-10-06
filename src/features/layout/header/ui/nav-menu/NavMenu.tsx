@@ -1,20 +1,21 @@
 "use client";
 import { usePathname } from "next/navigation";
 
-import NavElement from "./NavMenuItem";
-import { MenuItem } from "./nav.type";
+import { MenuItem } from "@/features/layout/header/types/nav-menu.types";
+
+import NavMenuItem from "./NavMenuItem";
 
 interface Props {
   menu: MenuItem[];
 }
 
-export function NavMenu({ menu }: Props) {
+export default function NavMenu({ menu }: Props) {
   const pathname = usePathname();
   const isActive = (href: string) => pathname.includes(href);
   return (
     <nav className="flex gap-3.5">
       {menu.map((menuItem) => (
-        <NavElement
+        <NavMenuItem
           key={menuItem.href}
           menuItem={menuItem}
           isActive={isActive(menuItem.href)}

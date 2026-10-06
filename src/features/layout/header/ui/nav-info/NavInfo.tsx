@@ -1,10 +1,11 @@
 import Logout from "@/features/auth/ui/logout/Logout";
+import { NavInfoProps } from "@/features/layout/header/types/nav-info.types";
 
-import { Button } from "../../ui/button";
-import { NavInfoProps } from "./nav-info.types";
-import UserInfo from "./user-info";
+import { Button } from "@/shared/components/ui/button";
 
-const NavInfo = ({ userInfo, icons }: NavInfoProps) => {
+import UserInfo from "./UserInfo";
+
+export default function NavInfo({ userInfo, icons }: NavInfoProps) {
   return (
     <div className="flex items-center gap-6">
       <div className="flex gap-2">
@@ -19,6 +20,4 @@ const NavInfo = ({ userInfo, icons }: NavInfoProps) => {
       <UserInfo {...userInfo} />
     </div>
   );
-};
-
-export default NavInfo;
+}

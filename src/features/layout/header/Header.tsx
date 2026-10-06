@@ -1,15 +1,16 @@
 "use client";
 import Link from "next/link";
 
-import NavInfo from "@/shared/components/custom-ui/nav-info/navInfo";
-import { NavMenu } from "@/shared/components/custom-ui/nav-menu/NavMenu";
+import { navInfoIcons } from "@/features/layout/header/data/nav-info.data";
+import { navMenuInfo } from "@/features/layout/header/data/nav-menu.data";
+import NavInfo from "@/features/layout/header/ui/nav-info/NavInfo";
+import NavMenu from "@/features/layout/header/ui/nav-menu/NavMenu";
 
-import { PAGES } from "../../../shared/config/page.config";
-import { useAuth } from "../../../shared/hooks/useAuth";
-import { navInfoIcons } from "./nav-info.data";
-import { navMenuInfo } from "./nav-menu.data";
+import { PAGES } from "@/shared/config/page.config";
 
-export function Header() {
+import { useAuth } from "@/shared/hooks/useAuth";
+
+export default function Header() {
   const { user } = useAuth();
   return (
     <header className="p-7 gap-7.5 items-center bg-background  flex justify-between ">

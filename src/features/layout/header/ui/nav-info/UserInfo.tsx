@@ -1,6 +1,10 @@
-import type { UserInfo } from "./nav-info.types";
+import type { UserInfoData } from "@/features/layout/header/types/nav-info.types";
 
-const UserInfo = ({ name, username, isEmailVerified }: UserInfo) => {
+export default function UserInfo({
+  name,
+  username,
+  isEmailVerified,
+}: UserInfoData) {
   return (
     <div>
       <div className="flex items-center ">
@@ -23,6 +27,4 @@ const UserInfo = ({ name, username, isEmailVerified }: UserInfo) => {
       )}
     </div>
   );
-};
-
-export default UserInfo;
+}

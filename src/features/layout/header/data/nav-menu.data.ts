@@ -3,19 +3,19 @@ import {
   BookOpen,
   ClipboardList,
   Home,
-  MessageCircle,
+  Settings,
   ShoppingCart,
   Utensils,
 } from "lucide-react";
 
-import { MenuItem } from "@/shared/components/custom-ui/nav-menu/nav.type";
+import { MenuItem } from "@/features/layout/header/types/nav-menu.types";
 
 import { PAGES } from "@/shared/config/page.config";
 
 export const navMenuInfo: MenuItem[] = [
   {
     label: "Home",
-    href: PAGES.HOME,
+    href: PAGES.DASHBOARD,
     icon: Home,
   },
   {
@@ -43,5 +43,5 @@ export const navMenuInfo: MenuItem[] = [
     href: PAGES.RECIPES,
     icon: BookOpen,
   },
-  { label: "Forum", href: PAGES.FORUM, icon: MessageCircle },
+  { label: "Profile", href: PAGES.PROFILE, icon: Settings },
 ];

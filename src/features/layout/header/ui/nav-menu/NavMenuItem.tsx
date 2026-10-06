@@ -1,18 +1,14 @@
 "use client";
 import { cn } from "@/shared/utils";
-import { cva } from "class-variance-authority";
-import { LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
-import { Button } from "../../ui/button";
-import { MenuItem } from "./nav.type";
+import { MenuItem } from "@/features/layout/header/types/nav-menu.types";
 
 interface Props {
   menuItem: MenuItem;
   isActive: boolean;
 }
-function NavElement({ menuItem, isActive }: Props) {
+export default function NavMenuItem({ menuItem, isActive }: Props) {
   return (
     <Link
       className={cn(
@@ -28,5 +24,3 @@ function NavElement({ menuItem, isActive }: Props) {
     </Link>
   );
 }
-
-export default NavElement;

@@ -4,7 +4,8 @@ import { Inter, Lato, Outfit, Roboto } from "next/font/google";
 
 import { Provider } from "@/app/providers/Provider";
 
-import { Header } from "../features/layout/header/Header";
+import Header from "@/features/layout/header/Header";
+
 import "./globals.css";
 
 const inter = Inter({
