@@ -4,6 +4,7 @@ import Image from "next/image";
 import React from "react";
 
 import "@/shared/api/__generated__/graphql";
+import toast from "react-hot-toast";
 
 interface AvatarUpload {
   avatarUrl?: string | null;
@@ -18,15 +19,21 @@ function AvatarUpload({ avatarUrl, onAvatarUpload }: AvatarUpload) {
     if (!file) return;
     const formData = new FormData();
     formData.append("file", file);
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/media-upload/avatar`,
-      {
-        method: "POST",
-        body: formData,
-        credentials: "include",
-      },
-    );
-    if (res.ok) onAvatarUpload();
+    try {
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/media-upload/avatar`,
+        {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        },
+      );
+      if (res.ok) onAvatarUpload();
+      toast.success('Аватар обновлен')
+    } catch (error) {
+      toast('Что то пошло не так')
+    }
   };
   return (
     <div className="flex items-end mt-1.5 shrink-0">

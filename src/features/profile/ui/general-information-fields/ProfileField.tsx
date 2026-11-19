@@ -1,11 +1,12 @@
 import { LucideIcon } from "lucide-react";
 import { FunctionComponent } from "react";
-
-import { Input } from "@/shared/components/ui/input";
-import FieldError from "@/shared/components/custom-ui/field-error/FieldError";
-
 import { useFormContext } from "react-hook-form";
+
 import { ProfileFormInput } from "@/features/profile/profile-schema.zod";
+
+import FieldError from "@/shared/components/custom-ui/field-error/FieldError";
+import { Input } from "@/shared/components/ui/input";
+
 export interface ProfileFieldProps {
   Icon: LucideIcon;
   label: string;
@@ -21,7 +22,10 @@ const ProfileField: FunctionComponent<ProfileFieldProps> = ({
   isEditing,
   formName,
 }) => {
-  const { register, formState: { errors } } = useFormContext<ProfileFormInput>()
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<ProfileFormInput>();
   const error = errors[formName];
 
   return (
@@ -33,7 +37,7 @@ const ProfileField: FunctionComponent<ProfileFieldProps> = ({
           {...register(formName, {})}
           readOnly={!isEditing}
           placeholder={placeholder}
-          className="w-full focus-visible:ring-0"
+          className="w-full "
           type="text"
         />
       </div>

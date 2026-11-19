@@ -1,12 +1,13 @@
+const DASHBOARD = "/dashboard";
+
 export const PAGES = {
-  // HOME: "/da",
-  DASHBOARD: "/dashboard",
-  MEAL_PLANS: "/dashboard/meal-plans",
-  NUTRITION: "/dashboard/nutrition",
-  ANALYTICS: "/dashboard/analytics",
-  ORDER_GROCERIES: "/dashboard/order-groceries",
-  RECIPES: "/dashboard/recipes",
-  PROFILE: "/profile",
+  DASHBOARD,
+  MEAL_PLANS: `${DASHBOARD}/meal-plans`,
+  NUTRITION: `${DASHBOARD}/nutrition`,
+  ANALYTICS: `${DASHBOARD}/analytics`,
+  ORDER_GROCERIES: `${DASHBOARD}/order-groceries`,
+  RECIPES: `${DASHBOARD}/recipes`,
+  PROFILE: `${DASHBOARD}/profile`,
   AUTH: "/auth",
   REGISTER: "/auth/register",
   LOGIN: "/auth/login",

@@ -31,6 +31,7 @@ interface BodyMeasurementsProps {
 const BodyMeasurements: FunctionComponent<BodyMeasurementsProps> = ({
   isEditing,
 }) => {
+
   return (
     <div className="flex gap-3">
       <Image
@@ -40,6 +41,7 @@ const BodyMeasurements: FunctionComponent<BodyMeasurementsProps> = ({
         alt="Woman img"
         src={"/flavotWoman.png"}
       />
+
       <div className="w-full">
         <span>Body measurements</span>
         <div className="p-1 gap-3.5">
@@ -129,6 +131,7 @@ const BodyMeasurements: FunctionComponent<BodyMeasurementsProps> = ({
           type={activityLevel}
         />
       </div>
+
     </div>
   );
 };

@@ -30,12 +30,14 @@ interface GeneralInformationProps {
   avatarUrl: string | null;
   onAvatarUpload: () => void;
   isEditing: boolean;
+  isEmailVerified: boolean | null | undefined
 }
 
 const GeneralInformation = ({
   avatarUrl,
   onAvatarUpload,
   isEditing,
+  isEmailVerified
 }: GeneralInformationProps) => {
   return (
     <div className="bg-secondary ">
@@ -53,7 +55,7 @@ const GeneralInformation = ({
             />{" "}
           </div>
         </div>
-        <div className="pt-2">
+        <div className="pt-2 ">
           <ProfileField
             formName="email"
             isEditing={isEditing}
@@ -61,6 +63,8 @@ const GeneralInformation = ({
             label={"Email"}
             placeholder={"example@gmail.com"}
           />{" "}
+          {!isEmailVerified && (<p className="text-red-500 text-[14px] font-medium ml-1.5">Email is not verificated</p>)}
+
         </div>
         <div className="flex gap-3 pt-2.5">
           <SelectField

@@ -11,12 +11,13 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
             font-outfit font-medium 
             text-field-foreground 
             bg-transparent
+            focus-visible:ring-0
             rounded-4xl 
-            px-1 py-1  
+            px-3 py-1  
             transition-[color,box-shadow] outline-none 
             placeholder:font-light placeholder:text-sm 
             focus-visible:border-ring
-            focus-visible:ring-1 focus-visible:ring-ring 
+             focus-visible:ring-ring 
             disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-90 
             aria-invalid:border-destructive
             aria-invalid:ring-3 aria-invalid:ring-destructive/20

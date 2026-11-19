@@ -1,8 +1,7 @@
-import path from "path";
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   turbopack: {
     root: path.resolve(__dirname),
   },
@@ -15,6 +14,10 @@ const nextConfig: NextConfig = {
         hostname: "localhost",
         port: "4200",
         pathname: "/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "placehold.co",
       },
     ],
   },

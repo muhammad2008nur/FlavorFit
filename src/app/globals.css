@@ -68,7 +68,7 @@
 }
 
 :root {
-  --background: rgb(244, 244, 244);
+  --background: rgb(242, 242, 242);
   --foreground: oklch(0.145 0 0);
 
   --card: oklch(1 0 0);
@@ -87,7 +87,7 @@
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(60.761% 0.00603 16.693);
 
-  --accent: #ffd54f;
+  --accent: #ffea4c;
   --accent-dark: #ffb300;
   --accent-foreground: oklch(0.205 0 0);
 

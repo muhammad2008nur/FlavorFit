@@ -1,19 +1,19 @@
-import { useMemo } from "react";
-import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMemo } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-
-import {
-  GetProfileQuery,
-  UpdateProfileDocument,
-} from "@/shared/api/__generated__/graphql";
 
 import {
   ProfileData,
   ProfileFormInput,
   profileSchema,
 } from "@/features/profile/profile-schema.zod";
+
+import {
+  GetProfileQuery,
+  UpdateProfileDocument,
+} from "@/shared/api/__generated__/graphql";
 
 const getFormValues = (
   data: GetProfileQuery | undefined,
@@ -42,7 +42,7 @@ export default function useProfileForm(
   data: GetProfileQuery | undefined,
   onSaved: () => void,
 ) {
-  const values = useMemo(() => getFormValues(data), [data]);
+  const values = getFormValues(data);
 
   const methods = useForm<ProfileFormInput, unknown, ProfileData>({
     values,
@@ -50,7 +50,7 @@ export default function useProfileForm(
   });
   const { handleSubmit, reset } = methods;
 
-  const [addProfileData, { loading: saving }] = useMutation(
+  const [updateProfile, { loading: saving }] = useMutation(
     UpdateProfileDocument,
   );
 
@@ -58,7 +58,7 @@ export default function useProfileForm(
     if (saving) return;
 
     try {
-      await addProfileData({
+      await updateProfile({
         variables: {
           data: {
             email: formValues.email,
